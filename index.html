@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#F8C8DC">
@@ -997,6 +998,14 @@ footer .copyright {font-size:10px;color:#C1AEB8;margin-top:30px}
 <div class="toast" id="toast"></div>
 
 <script>
+const SUPABASE_URL = 'https://trglawojrldqdpclzduw.supabase.co';
+
+const SUPABASE_ANON_KEY = 'sb_publishable_mt8Zj9vhQO1kzjLdt8VTbQ_dKsaRuw5';
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
 /* ==========================================
    BLUSH & BLOOMS - STORE SETTINGS
    EDIT YOUR BUSINESS DETAILS HERE
@@ -1634,10 +1643,6 @@ function showToast(message) {
 
 renderProducts();
 updateCart();
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-  // Your existing website JavaScript stays here
 </script>
 
 </body>
