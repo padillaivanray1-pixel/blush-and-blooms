@@ -1,0 +1,1640 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F8C8DC">
+<meta name="description" content="Blush & Blooms — A little sweetness, wrapped in magic. Discover beautiful handmade cakes, cupcakes, donuts and desserts.">
+<title>Blush & Blooms | A Little Sweetness</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --pink:#F8C8DC;
+  --blue:#B8DFFF;
+  --lavender:#E6D9FF;
+  --gold:#D8B875;
+  --ivory:#FFF9F4;
+  --white:#FFFFFF;
+  --ink:#493642;
+  --muted:#927F8A;
+  --rose:#C87998;
+  --border:#F0DFE5;
+  --shadow:0 12px 35px rgba(100,65,80,.09);
+}
+
+* {box-sizing:border-box;margin:0;padding:0}
+
+html {scroll-behavior:smooth}
+
+body {
+  background:var(--ivory);
+  color:var(--ink);
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden;
+}
+
+button,input,select,textarea {font:inherit}
+button {cursor:pointer}
+img {max-width:100%;display:block}
+a {color:inherit;text-decoration:none}
+
+.serif {font-family:'Cormorant Garamond',serif}
+
+.announcement {
+  background:var(--blue);
+  text-align:center;
+  padding:9px;
+  font-size:11px;
+  letter-spacing:2px;
+  color:#52677A;
+}
+
+header {
+  background:rgba(255,249,244,.96);
+  position:sticky;
+  top:0;
+  z-index:50;
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(12px);
+}
+
+.nav {
+  max-width:1250px;
+  margin:auto;
+  padding:15px 5%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.logo {
+  font-family:'Cormorant Garamond',serif;
+  font-size:29px;
+  font-weight:600;
+  line-height:1;
+  color:#9D617A;
+}
+
+.logo small {
+  display:block;
+  font-family:'DM Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:3px;
+  text-align:center;
+  margin-top:5px;
+  color:var(--gold);
+}
+
+.nav-links {
+  display:flex;
+  align-items:center;
+  gap:25px;
+  font-size:12px;
+}
+
+.nav-links a:hover {color:var(--rose)}
+
+.nav-actions {display:flex;gap:10px;align-items:center}
+
+.icon-btn {
+  background:white;
+  border:1px solid var(--border);
+  padding:10px 13px;
+  border-radius:30px;
+  color:var(--ink);
+}
+
+.cart-count {
+  background:var(--pink);
+  padding:2px 7px;
+  border-radius:50%;
+  font-size:10px;
+  margin-left:3px;
+}
+
+.hero {
+  min-height:570px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:65px 9%;
+  gap:45px;
+  background:linear-gradient(120deg,#FFF9F4 48%,#F8E3EA 100%);
+}
+
+.hero-content {max-width:560px}
+
+.eyebrow {
+  color:#AD7189;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  font-size:10px;
+  font-weight:700;
+  margin-bottom:20px;
+}
+
+.hero h1 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(52px,7vw,88px);
+  line-height:.94;
+  font-weight:500;
+  margin-bottom:23px;
+}
+
+.hero h1 span {color:#C77E9E;font-style:italic}
+
+.hero p {
+  color:var(--muted);
+  line-height:1.9;
+  font-size:13px;
+  max-width:420px;
+  margin-bottom:28px;
+}
+
+.primary-btn {
+  background:#C77E9E;
+  color:white;
+  padding:14px 25px;
+  border:0;
+  border-radius:3px;
+  font-size:11px;
+  letter-spacing:1px;
+  transition:.25s;
+  display:inline-block;
+}
+
+.primary-btn:hover {
+  background:#A65E80;
+  transform:translateY(-2px);
+}
+
+.secondary-btn {
+  background:white;
+  color:var(--ink);
+  border:1px solid var(--border);
+  padding:13px 22px;
+  border-radius:3px;
+  font-size:11px;
+}
+
+.hero-image {
+  height:440px;
+  border-radius:48% 48% 5px 5px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:var(--shadow);
+}
+
+.hero-image img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.hero-label {
+  position:absolute;
+  bottom:20px;
+  left:20px;
+  background:rgba(255,255,255,.92);
+  padding:14px 19px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:21px;
+}
+
+.section {
+  max-width:1250px;
+  margin:auto;
+  padding:80px 5%;
+}
+
+.section-heading {
+  text-align:center;
+  margin-bottom:35px;
+}
+
+.section-heading .eyebrow {margin-bottom:9px}
+
+.section-heading h2 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:47px;
+  font-weight:500;
+}
+
+.section-heading p {
+  font-size:12px;
+  color:var(--muted);
+  margin-top:9px;
+}
+
+.categories {
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:16px;
+}
+
+.category {
+  border:1px solid var(--border);
+  background:white;
+  padding:23px 10px;
+  text-align:center;
+  transition:.25s;
+  border-radius:4px;
+}
+
+.category:hover {
+  background:#FCEAF0;
+  transform:translateY(-4px);
+}
+
+.category .emoji {font-size:29px;margin-bottom:12px}
+
+.category h3 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:21px;
+  font-weight:600;
+}
+
+.category p {
+  font-size:10px;
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.shop-section {background:#FFFDFB}
+
+.shop-toolbar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.search {
+  padding:12px 16px;
+  border:1px solid var(--border);
+  background:white;
+  min-width:220px;
+  border-radius:3px;
+  outline:none;
+}
+
+.filters {display:flex;gap:8px;flex-wrap:wrap}
+
+.filter-btn {
+  border:1px solid var(--border);
+  background:white;
+  padding:10px 15px;
+  font-size:10px;
+  border-radius:30px;
+  color:var(--ink);
+}
+
+.filter-btn.active,.filter-btn:hover {
+  background:var(--pink);
+  border-color:var(--pink);
+}
+
+.product-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:22px;
+}
+
+.product-card {
+  background:white;
+  border:1px solid #F1E7E8;
+  transition:.3s;
+  min-width:0;
+}
+
+.product-card:hover {
+  transform:translateY(-5px);
+  box-shadow:var(--shadow);
+}
+
+.product-photo {
+  height:235px;
+  overflow:hidden;
+  background:#F8E8EE;
+  position:relative;
+  cursor:pointer;
+}
+
+.product-photo img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:.5s;
+}
+
+.product-card:hover .product-photo img {transform:scale(1.06)}
+
+.product-tag {
+  position:absolute;
+  top:12px;
+  left:12px;
+  background:white;
+  padding:6px 10px;
+  font-size:9px;
+  letter-spacing:1px;
+}
+
+.product-info {padding:17px}
+
+.product-info .category-name {
+  color:#BA8399;
+  font-size:9px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.product-info h3 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;
+  font-weight:600;
+  margin:6px 0;
+}
+
+.product-description {
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.6;
+  min-height:32px;
+}
+
+.product-bottom {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-top:15px;
+}
+
+.price {
+  font-size:12px;
+  font-weight:700;
+}
+
+.add-btn {
+  background:var(--pink);
+  border:0;
+  padding:10px 13px;
+  font-size:10px;
+  color:#74465B;
+}
+
+.add-btn:hover {background:var(--blue)}
+
+.promo {
+  background:linear-gradient(120deg,#E6D9FF,#F8C8DC,#B8DFFF);
+  padding:55px 20px;
+  text-align:center;
+}
+
+.promo h2 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:45px;
+  font-weight:500;
+}
+
+.promo p {
+  font-size:12px;
+  margin:12px 0 22px;
+}
+
+.promise-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px;
+  margin-top:35px;
+}
+
+.promise {
+  text-align:center;
+  padding:20px;
+}
+
+.promise span {font-size:30px}
+
+.promise h3 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;
+  margin:10px;
+}
+
+.promise p {
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.7;
+}
+
+footer {
+  background:#493642;
+  color:white;
+  padding:50px 7% 25px;
+  text-align:center;
+}
+
+footer .logo {color:#F8C8DC;font-size:34px}
+footer .logo small {color:var(--gold)}
+footer p {font-size:11px;color:#D8C6CF;margin:20px 0}
+footer .copyright {font-size:10px;color:#C1AEB8;margin-top:30px}
+
+/* PRODUCT MODAL */
+
+.modal-backdrop {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(48,30,40,.55);
+  z-index:100;
+  justify-content:center;
+  align-items:center;
+  padding:15px;
+}
+
+.modal-backdrop.show {display:flex}
+
+.modal {
+  background:var(--ivory);
+  width:100%;
+  max-width:780px;
+  max-height:90vh;
+  overflow:auto;
+  position:relative;
+  padding:30px;
+  border-radius:5px;
+}
+
+.close {
+  position:absolute;
+  top:12px;
+  right:15px;
+  border:0;
+  background:white;
+  border-radius:50%;
+  width:35px;
+  height:35px;
+  font-size:20px;
+  z-index:2;
+}
+
+.modal-content {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:25px;
+}
+
+.modal-image {
+  width:100%;
+  height:320px;
+  object-fit:cover;
+  border-radius:3px;
+}
+
+.modal h2 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:35px;
+  margin:8px 0;
+}
+
+.modal p {font-size:12px;color:var(--muted);line-height:1.7}
+
+.field {margin:15px 0}
+
+.field label {
+  display:block;
+  font-size:10px;
+  font-weight:700;
+  margin-bottom:7px;
+}
+
+.field input,.field select,.field textarea {
+  width:100%;
+  border:1px solid var(--border);
+  padding:11px;
+  background:white;
+  outline:none;
+  border-radius:2px;
+  font-size:12px;
+}
+
+.field textarea {min-height:75px;resize:vertical}
+
+.modal-actions {
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-top:20px;
+}
+
+.quantity {
+  display:flex;
+  align-items:center;
+  border:1px solid var(--border);
+  background:white;
+}
+
+.quantity button {
+  border:0;
+  background:white;
+  padding:9px 12px;
+}
+
+.quantity span {font-size:12px;min-width:22px;text-align:center}
+
+/* CART */
+
+.cart-panel {
+  position:fixed;
+  z-index:110;
+  right:-450px;
+  top:0;
+  width:min(420px,100%);
+  height:100%;
+  background:var(--ivory);
+  box-shadow:-10px 0 30px rgba(0,0,0,.1);
+  padding:25px;
+  transition:.3s;
+  display:flex;
+  flex-direction:column;
+}
+
+.cart-panel.open {right:0}
+
+.cart-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding-bottom:20px;
+  border-bottom:1px solid var(--border);
+}
+
+.cart-header h2 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:30px;
+}
+
+.cart-items {overflow:auto;flex:1;padding:15px 0}
+
+.cart-item {
+  display:grid;
+  grid-template-columns:65px 1fr auto;
+  gap:12px;
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.cart-item img {
+  width:65px;
+  height:70px;
+  object-fit:cover;
+}
+
+.cart-item h4 {font-family:'Cormorant Garamond',serif;font-size:19px}
+.cart-item p {font-size:10px;color:var(--muted);margin:4px 0}
+.cart-item button {border:0;background:none;color:#B76F8B;font-size:10px}
+
+.cart-summary {border-top:1px solid var(--border);padding-top:17px}
+.summary-line {display:flex;justify-content:space-between;font-size:12px;margin:10px 0}
+.total {font-size:17px;font-weight:700}
+.cart-note {font-size:10px;color:var(--muted);line-height:1.6;margin:12px 0}
+
+.checkout-btn {width:100%;margin-top:10px}
+
+.empty {
+  text-align:center;
+  padding:50px 10px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* CHECKOUT */
+
+.checkout-wrap {
+  max-width:650px;
+  margin:auto;
+  padding:25px;
+  background:white;
+  border:1px solid var(--border);
+}
+
+.checkout-wrap h2 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:35px;
+  margin-bottom:20px;
+}
+
+.checkout-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0 15px;
+}
+
+.full {grid-column:1/-1}
+
+#checkout {display:none}
+
+.toast {
+  position:fixed;
+  bottom:25px;
+  left:50%;
+  transform:translateX(-50%) translateY(100px);
+  background:#493642;
+  color:white;
+  padding:13px 22px;
+  border-radius:30px;
+  z-index:200;
+  font-size:11px;
+  transition:.3s;
+}
+
+.toast.show {transform:translateX(-50%) translateY(0)}
+
+@media(max-width:900px) {
+  .product-grid {grid-template-columns:repeat(3,1fr)}
+  .hero {padding:50px 6%}
+  .hero-image {height:350px}
+}
+
+@media(max-width:650px) {
+  .nav {padding:13px 4%}
+  .logo {font-size:24px}
+  .nav-links {display:none}
+  .hero {grid-template-columns:1fr;padding:50px 7%;gap:30px}
+  .hero h1 {font-size:65px}
+  .hero-image {height:330px;max-width:420px;width:100%;margin:auto}
+  .section {padding:60px 5%}
+  .section-heading h2 {font-size:38px}
+  .categories {grid-template-columns:repeat(2,1fr)}
+  .product-grid {grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .product-photo {height:175px}
+  .product-info {padding:12px}
+  .product-info h3 {font-size:21px}
+  .product-description {font-size:9px}
+  .add-btn {padding:9px 10px}
+  .promise-grid {grid-template-columns:1fr;gap:10px}
+  .modal {padding:20px}
+  .modal-content {grid-template-columns:1fr}
+  .modal-image {height:220px}
+  .checkout-grid {grid-template-columns:1fr}
+  .full {grid-column:auto}
+  .shop-toolbar {align-items:stretch}
+  .search {width:100%}
+  .filters {overflow-x:auto;flex-wrap:nowrap;padding-bottom:8px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="announcement">
+  ✧ A LITTLE SWEETNESS, WRAPPED IN MAGIC ✧
+</div>
+
+<header>
+  <nav class="nav">
+    <a href="#" class="logo">
+      Blush & Blooms
+      <small>HOME BAKED WITH LOVE</small>
+    </a>
+
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#categories">Collections</a>
+      <a href="#shop">Shop</a>
+      <a href="#about">Our Story</a>
+    </div>
+
+    <div class="nav-actions">
+      <button class="icon-btn" onclick="openCart()">
+        ♡ Cart <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="eyebrow">A boutique bakery experience</div>
+    <h1 class="serif">Sweet little<br><span>moments.</span></h1>
+    <p>
+      Beautifully made treats for your sweetest celebrations.
+      From dreamy vintage cakes to delightful little desserts,
+      every creation is made to make your moments special.
+    </p>
+    <a href="#shop" class="primary-btn">EXPLORE OUR TREATS →</a>
+  </div>
+
+  <div class="hero-image">
+    <img
+      src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1000&q=85"
+      alt="Beautiful celebration cake"
+    >
+    <div class="hero-label">Made with love, always ♡</div>
+  </div>
+</section>
+
+<section class="section" id="categories">
+  <div class="section-heading">
+    <div class="eyebrow">Discover our collections</div>
+    <h2>Something sweet for everyone</h2>
+    <p>Find your next favorite little indulgence.</p>
+  </div>
+
+  <div class="categories">
+    <button class="category" onclick="filterProducts('Cakes')">
+      <div class="emoji">🎂</div>
+      <h3>Cakes</h3>
+      <p>For your special days</p>
+    </button>
+
+    <button class="category" onclick="filterProducts('Cupcakes')">
+      <div class="emoji">🧁</div>
+      <h3>Cupcakes</h3>
+      <p>Little bites of joy</p>
+    </button>
+
+    <button class="category" onclick="filterProducts('Donuts')">
+      <div class="emoji">🍩</div>
+      <h3>Donuts</h3>
+      <p>Sweet little rings</p>
+    </button>
+
+    <button class="category" onclick="filterProducts('Breads')">
+      <div class="emoji">🥐</div>
+      <h3>Breads</h3>
+      <p>Freshly baked goodness</p>
+    </button>
+
+    <button class="category" onclick="filterProducts('Desserts')">
+      <div class="emoji">🍪</div>
+      <h3>Desserts</h3>
+      <p>Made for cravings</p>
+    </button>
+  </div>
+</section>
+
+<section class="section shop-section" id="shop">
+  <div class="section-heading">
+    <div class="eyebrow">The sweet collection</div>
+    <h2>Our little bakery shop</h2>
+    <p>Handcrafted treats for every kind of celebration.</p>
+  </div>
+
+  <div class="shop-toolbar">
+    <input
+      class="search"
+      id="searchInput"
+      type="search"
+      placeholder="Search something sweet..."
+      oninput="renderProducts()"
+    >
+
+    <div class="filters" id="filters">
+      <button class="filter-btn active" onclick="filterProducts('All',this)">All</button>
+      <button class="filter-btn" onclick="filterProducts('Cakes',this)">Cakes</button>
+      <button class="filter-btn" onclick="filterProducts('Cupcakes',this)">Cupcakes</button>
+      <button class="filter-btn" onclick="filterProducts('Donuts',this)">Donuts</button>
+      <button class="filter-btn" onclick="filterProducts('Breads',this)">Breads</button>
+      <button class="filter-btn" onclick="filterProducts('Desserts',this)">Desserts</button>
+    </div>
+  </div>
+
+  <div class="product-grid" id="productGrid"></div>
+</section>
+
+<section class="promo">
+  <div class="eyebrow">For life's sweetest moments</div>
+  <h2>Every celebration deserves a little magic.</h2>
+  <p>Birthdays, anniversaries, surprises and everyday happiness.</p>
+  <a href="#shop" class="primary-btn">FIND YOUR SWEETNESS</a>
+</section>
+
+<section class="section" id="about">
+  <div class="section-heading">
+    <div class="eyebrow">A little about us</div>
+    <h2>Baked with love, shared with joy.</h2>
+    <p>Every little treat deserves a beautiful moment.</p>
+  </div>
+
+  <div class="promise-grid">
+    <div class="promise">
+      <span>♡</span>
+      <h3>Made with love</h3>
+      <p>Thoughtfully prepared treats for your special moments.</p>
+    </div>
+    <div class="promise">
+      <span>✧</span>
+      <h3>Made for memories</h3>
+      <p>Sweet creations for birthdays, gatherings and celebrations.</p>
+    </div>
+    <div class="promise">
+      <span>🎀</span>
+      <h3>Little details matter</h3>
+      <p>Beautiful designs and delightful presentation in every order.</p>
+    </div>
+  </div>
+</section>
+
+<section id="checkout" class="section">
+  <div class="checkout-wrap">
+    <h2>Let's make it sweet ♡</h2>
+    <p style="font-size:11px;color:#927F8A;margin-bottom:20px">
+      Please provide your details so we can prepare your order.
+    </p>
+
+    <form id="checkoutForm">
+      <div class="checkout-grid">
+
+        <div class="field">
+          <label>Full name *</label>
+          <input name="name" required placeholder="Your full name">
+        </div>
+
+        <div class="field">
+          <label>Contact number *</label>
+          <input name="phone" type="tel" required placeholder="09XXXXXXXXX">
+        </div>
+
+        <div class="field full">
+          <label>Complete delivery address *</label>
+          <textarea name="address" required placeholder="House number, street, barangay, city/municipality, province"></textarea>
+        </div>
+
+        <div class="field">
+          <label>Preferred delivery date *</label>
+          <input name="date" type="date" required id="deliveryDate">
+        </div>
+
+        <div class="field">
+          <label>Preferred delivery time *</label>
+          <input name="time" type="time" required>
+        </div>
+
+        <div class="field full">
+          <label>Order instructions</label>
+          <textarea name="instructions" placeholder="Special requests, delivery notes, etc."></textarea>
+        </div>
+
+        <div class="field full">
+          <label>Payment method (to be confirmed)</label>
+          <select name="payment">
+            <option value="To be discussed">To be discussed</option>
+            <option value="GCash - manual verification required">GCash</option>
+            <option value="Cash - subject to confirmation">Cash</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div id="checkoutSummary" style="padding:15px;background:#FFF9F4;font-size:12px;line-height:2;margin:15px 0"></div>
+
+      <p style="font-size:10px;color:#927F8A;line-height:1.7;margin-bottom:15px">
+        Submitting your order is a request, not a confirmed booking.
+        We will contact you to verify availability, final pricing and delivery arrangements.
+        Payment is not automatically marked as received.
+      </p>
+
+      <button type="submit" class="primary-btn" style="width:100%">
+        PREPARE MY ORDER →
+      </button>
+
+      <button type="button" class="secondary-btn" style="width:100%;margin-top:10px" onclick="backToShop()">
+        CONTINUE SHOPPING
+      </button>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="logo">
+    Blush & Blooms
+    <small>HOME BAKED WITH LOVE</small>
+  </div>
+  <p>A little sweetness, wrapped in magic.</p>
+  <p>Handcrafted treats for your sweetest moments. ♡</p>
+  <div class="copyright">© 2026 Blush & Blooms. All rights reserved.</div>
+</footer>
+
+<!-- PRODUCT CUSTOMIZATION MODAL -->
+
+<div class="modal-backdrop" id="productModal" onclick="backdropClose(event)">
+  <div class="modal">
+    <button class="close" onclick="closeModal()">×</button>
+    <div class="modal-content">
+      <div>
+        <img id="modalImage" class="modal-image" src="" alt="Selected bakery product">
+      </div>
+
+      <div>
+        <div class="eyebrow" id="modalCategory"></div>
+        <h2 id="modalName" class="serif"></h2>
+        <p id="modalDescription"></p>
+        <h3 id="modalPrice" style="margin-top:12px;font-size:14px"></h3>
+        <div id="variationFields"></div>
+
+        <div class="modal-actions">
+          <div class="quantity">
+            <button onclick="changeModalQty(-1)">−</button>
+            <span id="modalQty">1</span>
+            <button onclick="changeModalQty(1)">+</button>
+          </div>
+          <button class="primary-btn" onclick="addFromModal()">ADD TO CART</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SHOPPING CART -->
+
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <h2>Your sweet basket ♡</h2>
+    <button class="close" onclick="closeCart()">×</button>
+  </div>
+
+  <div class="cart-items" id="cartItems"></div>
+
+  <div class="cart-summary">
+    <div class="summary-line">
+      <span>Subtotal</span>
+      <strong id="cartSubtotal">₱0.00</strong>
+    </div>
+    <div class="summary-line">
+      <span>Delivery fee</span>
+      <strong id="deliveryFee">To be confirmed</strong>
+    </div>
+    <div class="summary-line total">
+      <span>Estimated total</span>
+      <strong id="cartTotal">To be confirmed</strong>
+    </div>
+
+    <p class="cart-note">
+      Unconfirmed product prices and delivery charges will be finalized
+      by the bakery before your order is accepted.
+    </p>
+
+    <button class="primary-btn checkout-btn" onclick="goCheckout()">
+      PROCEED TO CHECKOUT →
+    </button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ==========================================
+   BLUSH & BLOOMS - STORE SETTINGS
+   EDIT YOUR BUSINESS DETAILS HERE
+========================================== */
+
+const STORE = {
+  name: "Blush & Blooms",
+
+  // Add your actual Facebook Messenger page link later.
+  // Example format: https://m.me/YourPageUsername
+  messengerURL: "",
+
+  // Keep zero until you decide your actual delivery fees.
+  deliveryFee: 0
+};
+
+/* ==========================================
+   PRODUCT CATALOG
+   null = price not yet confirmed.
+   Giant Spanish Bread is fixed at ₱25.
+========================================== */
+
+const products = [
+  {
+    id:1,
+    name:"Vintage Buttercream Cake",
+    category:"Cakes",
+    price:null,
+    description:"A dreamy buttercream cake for your sweetest celebrations.",
+    image:"https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=700&q=80",
+    variations:["Size","Flavor","Frosting color","Design"],
+    options:{
+      Size:["4 inches","6 inches","8 inches","10 inches"],
+      Flavor:["Chocolate","Vanilla","Red Velvet","Mocha","Ube"],
+      "Frosting color":["Blush pink","Baby blue","Lavender","White","Custom"],
+      Design:["Vintage","Minimalist","Custom"]
+    }
+  },
+  {
+    id:2,
+    name:"Vintage Heart Cake",
+    category:"Cakes",
+    price:null,
+    description:"Romantic heart-shaped cakes with vintage piping details.",
+    image:"https://images.unsplash.com/photo-1562777717-dc6984f65a63?auto=format&fit=crop&w=700&q=80",
+    variations:["Size","Flavor","Frosting color","Personalized message"],
+    options:{
+      Size:["4 inches","6 inches","8 inches"],
+      Flavor:["Chocolate","Vanilla","Red Velvet","Ube"],
+      "Frosting color":["Pink","Blue","Lavender","White","Custom"]
+    }
+  },
+  {
+    id:3,
+    name:"Custom Celebration Cake",
+    category:"Cakes",
+    price:null,
+    description:"A personalized centerpiece for your most special day.",
+    image:"https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?auto=format&fit=crop&w=700&q=80",
+    variations:["Size","Flavor","Design","Frosting color"],
+    options:{
+      Size:["6 inches","8 inches","10 inches"],
+      Flavor:["Chocolate","Vanilla","Red Velvet","Mocha","Ube"],
+      Design:["Minimalist","Vintage","Theme-based","Custom"]
+    }
+  },
+  {
+    id:4,
+    name:"Classic Cupcakes",
+    category:"Cupcakes",
+    price:null,
+    description:"Soft, fluffy cupcakes topped with delicious frosting.",
+    image:"https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=700&q=80",
+    variations:["Flavor","Quantity","Frosting color"],
+    options:{
+      Flavor:["Chocolate","Vanilla","Red Velvet","Ube"],
+      Quantity:["6 pieces","12 pieces","24 pieces"],
+      "Frosting color":["Pink","Blue","Lavender","White"]
+    }
+  },
+  {
+    id:5,
+    name:"Large Cupcakes",
+    category:"Cupcakes",
+    price:null,
+    description:"Generously sized cupcakes for extra special cravings.",
+    image:"https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=700&q=80",
+    variations:["Flavor","Quantity","Frosting color"],
+    options:{
+      Flavor:["Chocolate","Vanilla","Red Velvet","Ube"],
+      Quantity:["2 pieces","4 pieces","6 pieces"],
+      "Frosting color":["Pink","Blue","Lavender","White"]
+    }
+  },
+  {
+    id:6,
+    name:"Cupcake Bouquet",
+    category:"Cupcakes",
+    price:null,
+    description:"A beautiful bouquet made entirely of decorated cupcakes, not fresh flowers.",
+    image:"https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=700&q=80",
+    variations:["Bouquet design","Number of cupcakes","Flavors","Wrapping color","Greeting card"],
+    options:{
+      "Bouquet design":["Classic","Romantic","Luxury"],
+      "Number of cupcakes":["7 cupcakes","12 cupcakes","19 cupcakes"],
+      Flavors:["Chocolate","Vanilla","Mixed flavors"],
+      "Wrapping color":["Pink","Blue","Lavender","White"],
+      "Greeting card":["Yes","No"]
+    }
+  },
+  {
+    id:7,
+    name:"Chocolate Donuts",
+    category:"Donuts",
+    price:null,
+    description:"Delightful donuts with a rich chocolate finish.",
+    image:"https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=700&q=80",
+    variations:["Quantity","Box size"],
+    options:{
+      Quantity:["1 piece","6 pieces","12 pieces"],
+      "Box size":["Single","Small box","Large box"]
+    }
+  },
+  {
+    id:8,
+    name:"Strawberry Donuts",
+    category:"Donuts",
+    price:null,
+    description:"Pretty pink-inspired donuts for a sweet little treat.",
+    image:"https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=700&q=80",
+    variations:["Quantity","Box size"],
+    options:{
+      Quantity:["1 piece","6 pieces","12 pieces"],
+      "Box size":["Single","Small box","Large box"]
+    }
+  },
+  {
+    id:9,
+    name:"Ube Donuts",
+    category:"Donuts",
+    price:null,
+    description:"A Filipino-inspired donut with delightful ube flavor.",
+    image:"https://images.unsplash.com/photo-1533910534207-90f31029a78e?auto=format&fit=crop&w=700&q=80",
+    variations:["Quantity","Box size"],
+    options:{
+      Quantity:["1 piece","6 pieces","12 pieces"],
+      "Box size":["Single","Small box","Large box"]
+    }
+  },
+  {
+    id:10,
+    name:"Messy Ensaymada",
+    category:"Breads",
+    price:null,
+    description:"A soft, buttery Filipino favorite with a generous topping.",
+    image:"https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=700&q=80",
+    variations:["Quantity","Variation"],
+    options:{
+      Quantity:["1 piece","3 pieces","6 pieces","12 pieces"],
+      Variation:["Classic","Cheese","Extra topping"]
+    }
+  },
+  {
+    id:11,
+    name:"Giant Spanish Bread",
+    category:"Breads",
+    price:25,
+    description:"A generously sized Filipino Spanish bread. Fixed price: ₱25 each.",
+    image:"https://images.unsplash.com/photo-1608198093002-ad4e005484c2?auto=format&fit=crop&w=700&q=80",
+    variations:["Quantity"],
+    options:{
+      Quantity:["1 piece","2 pieces","3 pieces","6 pieces","12 pieces"]
+    }
+  },
+  {
+    id:12,
+    name:"Chocolate Chip Cookies",
+    category:"Desserts",
+    price:null,
+    description:"Delicious cookies for your everyday sweet cravings.",
+    image:"https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=700&q=80",
+    variations:["Quantity"],
+    options:{
+      Quantity:["1 piece","6 pieces","12 pieces"]
+    }
+  },
+  {
+    id:13,
+    name:"Fudgy Brownies",
+    category:"Desserts",
+    price:null,
+    description:"Rich and chocolatey brownies for dessert lovers.",
+    image:"https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=700&q=80",
+    variations:["Quantity"],
+    options:{
+      Quantity:["1 piece","4 pieces","6 pieces","12 pieces"]
+    }
+  },
+  {
+    id:14,
+    name:"Sweet Dessert Tart",
+    category:"Desserts",
+    price:null,
+    description:"A lovely little tart for a beautiful dessert moment.",
+    image:"https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=700&q=80",
+    variations:["Flavor","Quantity"],
+    options:{
+      Flavor:["Chocolate","Fruit","Vanilla"],
+      Quantity:["1 piece","4 pieces","6 pieces"]
+    }
+  },
+  {
+    id:15,
+    name:"Chocolate Lava Cake",
+    category:"Desserts",
+    price:null,
+    description:"A chocolate dessert made for indulgent moments.",
+    image:"https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?auto=format&fit=crop&w=700&q=80",
+    variations:["Quantity"],
+    options:{
+      Quantity:["1 piece","2 pieces","4 pieces"]
+    }
+  }
+];
+
+/* ==========================================
+   CART STORAGE
+========================================== */
+
+let cart = [];
+
+try {
+  cart = JSON.parse(localStorage.getItem("blushBloomsCart")) || [];
+} catch(error) {
+  cart = [];
+}
+
+let currentCategory = "All";
+let selectedProduct = null;
+let modalQuantity = 1;
+
+function saveCart() {
+  localStorage.setItem("blushBloomsCart",JSON.stringify(cart));
+  updateCart();
+}
+
+function money(value) {
+  return "₱" + Number(value).toLocaleString("en-PH",{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
+}
+
+function priceLabel(price) {
+  return price === null ? "Price to be confirmed" : money(price);
+}
+
+/* ==========================================
+   PRODUCT DISPLAY
+========================================== */
+
+function renderProducts() {
+  const grid = document.getElementById("productGrid");
+  const search = document.getElementById("searchInput").value.toLowerCase();
+
+  const filtered = products.filter(product => {
+    const matchesCategory = currentCategory === "All" ||
+      product.category === currentCategory;
+
+    const matchesSearch =
+      product.name.toLowerCase().includes(search) ||
+      product.description.toLowerCase().includes(search);
+
+    return matchesCategory && matchesSearch;
+  });
+
+  if(!filtered.length) {
+    grid.innerHTML = '<div class="empty" style="grid-column:1/-1">No treats found. Try another search. ♡</div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(product => `
+    <article class="product-card">
+      <div class="product-photo" onclick="openProduct(${product.id})">
+        <img src="${product.image}" alt="${product.name}" loading="lazy">
+        <span class="product-tag">${product.category}</span>
+      </div>
+      <div class="product-info">
+        <div class="category-name">${product.category}</div>
+        <h3>${product.name}</h3>
+        <p class="product-description">${product.description}</p>
+        <div class="product-bottom">
+          <span class="price">${priceLabel(product.price)}</span>
+          <button class="add-btn" onclick="openProduct(${product.id})">VIEW ♡</button>
+        </div>
+      </div>
+    </article>
+  `).join("");
+}
+
+function filterProducts(category,button) {
+  currentCategory = category;
+
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  if(button) {
+    button.classList.add("active");
+  } else {
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      if(btn.textContent.trim() === category ||
+        (category === "All" && btn.textContent.trim() === "All")) {
+        btn.classList.add("active");
+      }
+    });
+  }
+
+  renderProducts();
+  document.getElementById("shop").scrollIntoView({behavior:"smooth"});
+}
+
+/* ==========================================
+   PRODUCT DETAILS AND CUSTOMIZATION
+========================================== */
+
+function openProduct(id) {
+  selectedProduct = products.find(p => p.id === id);
+  modalQuantity = 1;
+
+  document.getElementById("modalImage").src = selectedProduct.image;
+  document.getElementById("modalImage").alt = selectedProduct.name;
+  document.getElementById("modalCategory").textContent = selectedProduct.category;
+  document.getElementById("modalName").textContent = selectedProduct.name;
+  document.getElementById("modalDescription").textContent = selectedProduct.description;
+  document.getElementById("modalPrice").textContent = priceLabel(selectedProduct.price);
+  document.getElementById("modalQty").textContent = modalQuantity;
+
+  const fields = document.getElementById("variationFields");
+
+  fields.innerHTML = Object.entries(selectedProduct.options || {}).map(([name,options]) => `
+    <div class="field">
+      <label>${name}</label>
+      <select data-variation="${name}">
+        ${options.map(option => `<option value="${option}">${option}</option>`).join("")}
+      </select>
+    </div>
+  `).join("");
+
+  if(["Cakes"].includes(selectedProduct.category)) {
+    fields.innerHTML += `
+      <div class="field">
+        <label>Personalized message</label>
+        <input id="personalMessage" placeholder="Happy Birthday...">
+      </div>
+      <div class="field">
+        <label>Inspiration photo link (optional)</label>
+        <input id="inspirationPhoto" type="url" placeholder="Paste an image link">
+      </div>
+      <div class="field">
+        <label>Special instructions</label>
+        <textarea id="specialInstructions" placeholder="Tell us about your dream cake..."></textarea>
+      </div>
+    `;
+  } else if(selectedProduct.name === "Cupcake Bouquet") {
+    fields.innerHTML += `
+      <div class="field">
+        <label>Personalized message</label>
+        <input id="personalMessage" placeholder="Your greeting">
+      </div>
+      <div class="field">
+        <label>Special instructions</label>
+        <textarea id="specialInstructions" placeholder="Bouquet details..."></textarea>
+      </div>
+    `;
+  } else {
+    fields.innerHTML += `
+      <div class="field">
+        <label>Special instructions</label>
+        <textarea id="specialInstructions" placeholder="Any additional requests?"></textarea>
+      </div>
+    `;
+  }
+
+  document.getElementById("productModal").classList.add("show");
+}
+
+function closeModal() {
+  document.getElementById("productModal").classList.remove("show");
+}
+
+function backdropClose(event) {
+  if(event.target.id === "productModal") closeModal();
+}
+
+function changeModalQty(amount) {
+  modalQuantity = Math.max(1,Math.min(99,modalQuantity + amount));
+  document.getElementById("modalQty").textContent = modalQuantity;
+}
+
+function addFromModal() {
+  if(!selectedProduct) return;
+
+  const variations = {};
+
+  document.querySelectorAll("[data-variation]").forEach(field => {
+    variations[field.dataset.variation] = field.value;
+  });
+
+  const message = document.getElementById("personalMessage")?.value || "";
+  const inspiration = document.getElementById("inspirationPhoto")?.value || "";
+  const instructions = document.getElementById("specialInstructions")?.value || "";
+
+  const key = JSON.stringify({
+    id:selectedProduct.id,
+    variations,
+    message,
+    inspiration,
+    instructions
+  });
+
+  const existing = cart.find(item => item.key === key);
+
+  if(existing) {
+    existing.quantity += modalQuantity;
+  } else {
+    cart.push({
+      key,
+      id:selectedProduct.id,
+      name:selectedProduct.name,
+      image:selectedProduct.image,
+      price:selectedProduct.price,
+      quantity:modalQuantity,
+      variations,
+      message,
+      inspiration,
+      instructions
+    });
+  }
+
+  saveCart();
+  closeModal();
+  showToast("Sweetness added to your basket! ♡");
+}
+
+/* ==========================================
+   CART
+========================================== */
+
+function updateCart() {
+  const count = cart.reduce((sum,item) => sum + item.quantity,0);
+  document.getElementById("cartCount").textContent = count;
+
+  const container = document.getElementById("cartItems");
+
+  if(cart.length === 0) {
+    container.innerHTML = '<div class="empty">Your basket is waiting for something sweet. ♡</div>';
+  } else {
+    container.innerHTML = cart.map((item,index) => `
+      <div class="cart-item">
+        <img src="${item.image}" alt="${item.name}">
+        <div>
+          <h4>${item.name}</h4>
+          <p>Qty: ${item.quantity}</p>
+          <p>${Object.entries(item.variations || {}).map(([k,v]) => `${k}: ${v}`).join(" · ")}</p>
+          <button onclick="removeItem(${index})">Remove</button>
+          <button onclick="changeCartQty(${index},-1)"> − </button>
+          <button onclick="changeCartQty(${index},1)"> + </button>
+        </div>
+        <strong style="font-size:11px">
+          ${item.price === null ? "TBC" : money(item.price * item.quantity)}
+        </strong>
+      </div>
+    `).join("");
+  }
+
+  const hasUnknownPrice = cart.some(item => item.price === null);
+  const subtotal = cart.reduce((sum,item) => {
+    return sum + (item.price === null ? 0 : item.price * item.quantity);
+  },0);
+
+  document.getElementById("cartSubtotal").textContent =
+    hasUnknownPrice ? money(subtotal) + " + TBC items" : money(subtotal);
+
+  document.getElementById("deliveryFee").textContent =
+    STORE.deliveryFee > 0 ? money(STORE.deliveryFee) : "To be confirmed";
+
+  document.getElementById("cartTotal").textContent =
+    hasUnknownPrice || STORE.deliveryFee === 0
+      ? "To be confirmed"
+      : money(subtotal + STORE.deliveryFee);
+}
+
+function changeCartQty(index,amount) {
+  cart[index].quantity += amount;
+
+  if(cart[index].quantity <= 0) {
+    cart.splice(index,1);
+  }
+
+  saveCart();
+}
+
+function removeItem(index) {
+  cart.splice(index,1);
+  saveCart();
+}
+
+function openCart() {
+  document.getElementById("cartPanel").classList.add("open");
+}
+
+function closeCart() {
+  document.getElementById("cartPanel").classList.remove("open");
+}
+
+/* ==========================================
+   CHECKOUT
+========================================== */
+
+function goCheckout() {
+  if(!cart.length) {
+    showToast("Your basket is empty! ♡");
+    return;
+  }
+
+  closeCart();
+
+  const checkout = document.getElementById("checkout");
+  checkout.style.display = "block";
+
+  document.getElementById("checkoutSummary").innerHTML =
+    cart.map(item => `
+      ${item.quantity} × ${item.name}
+      — ${item.price === null ? "Price TBC" : money(item.price * item.quantity)}
+    `).join("<br>") +
+    `<hr style="margin:10px 0;border:0;border-top:1px solid #F0DFE5">
+    Delivery: To be confirmed<br>
+    <strong>Final amount: To be confirmed</strong>`;
+
+  document.getElementById("checkout").scrollIntoView({behavior:"smooth"});
+}
+
+function backToShop() {
+  document.getElementById("checkout").style.display = "none";
+  document.getElementById("shop").scrollIntoView({behavior:"smooth"});
+}
+
+document.getElementById("deliveryDate").min =
+  new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+  .toISOString().split("T")[0];
+
+document.getElementById("checkoutForm").addEventListener("submit",async function(event) {
+  event.preventDefault();
+
+  if(!cart.length) {
+    showToast("Your basket is empty.");
+    return;
+  }
+
+  const formData = new FormData(this);
+  const details = Object.fromEntries(formData.entries());
+
+  const orderNumber = "BB-" + Date.now().toString().slice(-8);
+
+  const orderText = `
+BLUSH & BLOOMS — ORDER REQUEST
+Order reference: ${orderNumber}
+
+CUSTOMER DETAILS
+Name: ${details.name}
+Contact: ${details.phone}
+Address: ${details.address}
+
+PREFERRED DELIVERY
+Date: ${details.date}
+Time: ${details.time}
+
+ORDER ITEMS
+${cart.map(item => `
+${item.name}
+Quantity: ${item.quantity}
+Price: ${item.price === null ? "To be confirmed" : money(item.price * item.quantity)}
+Variations: ${JSON.stringify(item.variations)}
+Message: ${item.message || "None"}
+Inspiration photo: ${item.inspiration || "None"}
+Instructions: ${item.instructions || "None"}
+`).join("\n")}
+
+Delivery fee: To be confirmed
+Final total: To be confirmed
+
+Payment preference: ${details.payment}
+Customer instructions: ${details.instructions || "None"}
+
+NOTE: This is an order request only. Availability,
+pricing, delivery and payment must be manually confirmed.
+Payment has NOT been verified.
+`;
+
+  try {
+    await navigator.clipboard.writeText(orderText);
+  } catch(error) {
+    const temporary = document.createElement("textarea");
+    temporary.value = orderText;
+    document.body.appendChild(temporary);
+    temporary.select();
+    document.execCommand("copy");
+    temporary.remove();
+  }
+
+  if(STORE.messengerURL) {
+    window.open(STORE.messengerURL,"_blank");
+    showToast("Order copied! Paste it into Messenger ♡");
+  } else {
+    alert("Your order details have been copied. Please paste them into your Blush & Blooms Messenger conversation. Your order is not confirmed yet.");
+  }
+
+  console.log("Order request:",orderText);
+});
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  },2500);
+}
+
+/* ==========================================
+   INITIALIZE WEBSITE
+========================================== */
+
+renderProducts();
+updateCart();
+</script>
+
+</body>
+</html>
