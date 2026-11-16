@@ -1472,6 +1472,11 @@ function productPriceLabel(product) {
   return priceLabel(product.price);
 }
 
+function filterProducts(category) {
+  currentCategory = category;
+  renderProducts();
+}
+
 function renderProducts() {
   const grid = document.getElementById("productGrid");
   const search = document.getElementById("searchInput").value.toLowerCase();
@@ -1513,41 +1518,45 @@ function renderProducts() {
 
   
 
+
 function openProduct(id) {
   selectedProduct = products.find(product => product.id === id);
 
   if (!selectedProduct) return;
 
   const modal = document.getElementById("productModal");
-  const fields = document.getElementById("productFields");
+  const fields = document.getElementById("variationFields");
 
-  document.getElementById("modalTitle").textContent = selectedProduct.name;
+  document.getElementById("modalName").textContent = selectedProduct.name;
   document.getElementById("modalImage").src = selectedProduct.image;
   document.getElementById("modalCategory").textContent = selectedProduct.category;
   document.getElementById("modalDescription").textContent = selectedProduct.description;
+  document.getElementById("modalQty").textContent = "1";
 
   fields.innerHTML = Object.entries(selectedProduct.options || {}).map(([name, options]) => `
-    <label>${name}</label>
-    <select data-variation="${name}">
-      ${options.map(option => `<option value="${option}">${option}</option>`).join("")}
-    </select>
+    <div class="field">
+      <label>${name}</label>
+      <select data-variation="${name}">
+        ${options.map(option => `<option value="${option}">${option}</option>`).join("")}
+      </select>
+    </div>
   `).join("");
 
   fields.querySelectorAll("select").forEach(select => {
     select.addEventListener("change", updateModalPrice);
   });
 
-  modal.style.display = "flex";
-
+  modal.classList.add("show");
   updateModalPrice();
 }
+
 
 function updateModalPrice() {
   if (!selectedProduct) return;
 
   const variations = {};
 
-  document.querySelectorAll("#productFields select").forEach(select => {
+  document.querySelectorAll("#variationFields select").forEach(select => {
     variations[select.dataset.variation] = select.value;
   });
 
@@ -1557,17 +1566,28 @@ function updateModalPrice() {
 }
 
 function closeProduct() {
-  document.getElementById("productModal").style.display = "none";
+  document.getElementById("productModal").classList.remove("show");
   selectedProduct = null;
 }
 
+function closeModal() {
+  closeProduct();
+}
+
+function backdropClose(event) {
+  if (event.target.id === "productModal") {
+    closeProduct();
+  }
+}
+
 function changeModalQty(change) {
-  const quantityInput = document.getElementById("modalQty");
+  const quantityDisplay = document.getElementById("modalQty");
 
-  if (!quantityInput) return;
+  if (!quantityDisplay) return;
 
-  const currentQuantity = parseInt(quantityInput.value, 10) || 1;
-  quantityInput.value = Math.max(1, currentQuantity + change);
+  const current = parseInt(quantityDisplay.textContent, 10) || 1;
+
+  quantityDisplay.textContent = Math.max(1, current + change);
 }
 
 function addFromModal() {
@@ -1575,7 +1595,7 @@ function addFromModal() {
 
   const variations = {};
 
-  document.querySelectorAll("#productFields select").forEach(select => {
+  document.querySelectorAll("#variationFields select").forEach(select => {
     variations[select.dataset.variation] = select.value;
   });
 
@@ -1586,10 +1606,11 @@ function addFromModal() {
     return;
   }
 
-  const quantity = Math.max(
-    1,
-    parseInt(document.getElementById("modalQty").value, 10) || 1
-  );
+  const quantity = parseInt(
+    document.getElementById("modalQty").textContent,
+    10
+  ) || 1;
+  
 
   cart.push({
     id: selectedProduct.id,
@@ -1613,10 +1634,12 @@ function updateCart() {
 
   if (!cartItems) return;
 
-  cartCount.textContent = cart.reduce(
+  const itemCount = cart.reduce(
     (total, item) => total + item.quantity,
     0
   );
+
+  cartCount.textContent = itemCount;
 
   if (cart.length === 0) {
     cartItems.innerHTML = '<p class="empty">Your cart is empty. ♡</p>';
@@ -1638,25 +1661,19 @@ function updateCart() {
     </div>
   `).join("");
 
-  const subtotal = cart.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
-
-  cartSubtotal.textContent = money(subtotal);
+  cartSubtotal.textContent = money(getCartSubtotal());
 }
-
-function removeCartItem(index) {
+  function removeCartItem(index) {
   cart.splice(index, 1);
   saveCart();
+  updateCart();
+}
+  function openCart() {
+  document.getElementById("cartPanel").classList.add("open");
 }
 
-function toggleCart() {
-  const cartDrawer = document.getElementById("cartDrawer");
-
-  if (!cartDrawer) return;
-
-  cartDrawer.classList.toggle("open");
+function closeCart() {
+  document.getElementById("cartPanel").classList.remove("open");
 }
 
 function getCartSubtotal() {
@@ -1665,8 +1682,32 @@ function getCartSubtotal() {
     0
   );
 }
+  function goCheckout() {
+  if (cart.length === 0) {
+    alert("Your cart is empty. Please add a product first.");
+    return;
+  }
 
-function clearCart() {
-  cart = [];
-  saveCart();
+  closeCart();
+
+  document.getElementById("checkout").scrollIntoView({
+    behavior: "smooth"
+  });
 }
+  function backToShop() {
+  document.getElementById("shop").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+  document.getElementById("checkoutForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  if (cart.length === 0) {
+    alert("Your cart is empty. Please add products first.");
+    return;
+  }
+
+  alert("Your checkout form is ready! We will connect order submission next.");
+});
+  renderProducts();
+updateCart();
