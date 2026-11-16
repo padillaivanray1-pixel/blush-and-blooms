@@ -1880,7 +1880,7 @@ function updateCheckoutSummary() {
 const checkoutForm = document.getElementById("checkoutForm");
 
 if (checkoutForm) {
-  checkoutForm.addEventListener("submit", function(event) {
+  checkoutForm.addEventListener("submit", async function(event) {
     event.preventDefault();
 
     if (cart.length === 0) {
@@ -1892,9 +1892,81 @@ if (checkoutForm) {
       return;
     }
 
-    alert(
-      "Thank you for choosing Blush & Blooms! ♡\n\nYour order form is ready. Order submission will be connected to the database next."
+    const submitButton = checkoutForm.querySelector(
+      'button[type="submit"]'
     );
+
+    const originalText = submitButton.textContent;
+
+    try {
+      submitButton.disabled = true;
+      submitButton.textContent = "SUBMITTING ORDER...";
+
+      const formData = new FormData(checkoutForm);
+
+      const orderData = {
+        customer_name: formData.get("name").trim(),
+        phone: formData.get("phone").trim(),
+        delivery_address: formData.get("address").trim(),
+
+        order_items: cart.map(item => ({
+          product_id: item.id,
+          name: item.name,
+          variations: item.variations,
+          price: item.price,
+          quantity: item.quantity,
+          line_total: item.price * item.quantity
+        })),
+
+        subtotal: getCartSubtotal(),
+
+        // Delivery fee and final total are not yet confirmed.
+        delivery_fee: null,
+        total: null,
+
+        preferred_date: formData.get("date"),
+        preferred_time: formData.get("time"),
+
+        special_instructions:
+          formData.get("instructions") || "",
+
+        payment_method: formData.get("payment"),
+
+        status: "Pending",
+        payment_status: "Unpaid",
+        order_type: "Delivery"
+      };
+
+      const { error } = await supabaseClient
+        .from("orders")
+        .insert([orderData]);
+
+      if (error) {
+        throw error;
+      }
+
+      alert(
+        "Thank you for choosing Blush & Blooms! ♡\n\n" +
+        "Your order request has been submitted successfully.\n\n" +
+        "We will contact you to confirm availability, delivery fees and payment arrangements."
+      );
+
+      clearCart();
+      checkoutForm.reset();
+      backToShop();
+
+    } catch (error) {
+      console.error("Order submission error:", error);
+
+      alert(
+        "Sorry! We couldn't submit your order.\n\n" +
+        "Please try again. If the problem continues, contact Blush & Blooms."
+      );
+
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = originalText;
+    }
   });
 }
 
