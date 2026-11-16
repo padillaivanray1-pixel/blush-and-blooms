@@ -498,7 +498,16 @@
                 <div class="detail">
                   <h4>Payment Details</h4>
                   <p><strong>Method:</strong> ${escapeHTML(order.payment_method || "Not specified")}</p>
-                  <p><strong>Payment status:</strong> ${escapeHTML(order.payment_status || "Unpaid")}</p>
+                 <p><strong>Payment status:</strong></p>
+
+<select
+  class="payment-status-select"
+  data-order-id="${escapeHTML(order.id)}"
+>
+  <option value="Unpaid" ${order.payment_status === "Unpaid" ? "selected" : ""}>Unpaid</option>
+  <option value="Partially Paid" ${order.payment_status === "Partially Paid" ? "selected" : ""}>Partially Paid</option>
+  <option value="Paid" ${order.payment_status === "Paid" ? "selected" : ""}>Paid</option>
+</select>
                   <p><strong>Subtotal:</strong> ${money(order.subtotal)}</p>
                   <p><strong>Delivery fee:</strong> ${money(order.delivery_fee)}</p>
                   <p class="total"><strong>Total:</strong> ${money(order.total)}</p>
@@ -530,7 +539,33 @@
         `;
       }
     }
+// UPDATE PAYMENT STATUS
 
+ordersContainer.addEventListener("change", async function(event) {
+  if (!event.target.classList.contains("payment-status-select")) {
+    return;
+  }
+
+  const orderId = event.target.dataset.orderId;
+  const newPaymentStatus = event.target.value;
+
+  event.target.disabled = true;
+
+  const { error } = await supabaseClient
+    .from("orders")
+    .update({ payment_status: newPaymentStatus })
+    .eq("id", orderId);
+
+  event.target.disabled = false;
+
+  if (error) {
+    alert("Could not update payment status: " + error.message);
+    await loadOrders();
+    return;
+  }
+
+  alert("Payment status updated successfully! ♡");
+});
     // REFRESH ORDERS
 
 // UPDATE ORDER STATUS
