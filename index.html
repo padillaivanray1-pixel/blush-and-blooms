@@ -1403,7 +1403,37 @@ function money(value) {
   return "₱" + Number(value).toLocaleString("en-PH",{
     minimumFractionDigits:2,
     maximumFractionDigits:2
-  });
+   });
+}
+function calculateProductPrice(product, variations) {
+  const pricing = product.pricing;
+
+  if (!pricing) return product.price ?? null;
+
+  if (pricing.mode === "option") {
+    const selected = variations[pricing.option];
+    return pricing.values[selected] ?? null;
+  }
+
+  if (pricing.mode === "unit") {
+    let unitPrice = pricing.unitPrice;
+
+    if (pricing.unitOption) {
+      unitPrice = pricing.unitPrices[variations[pricing.unitOption]];
+    }
+
+    const quantityText = pricing.quantityOption
+      ? variations[pricing.quantityOption]
+      : "1 piece";
+
+    const quantity = parseInt(quantityText, 10);
+
+    if (unitPrice == null || !quantity) return null;
+
+    return unitPrice * quantity;
+  }
+
+  return product.price ?? null;
 }
 
 function priceLabel(price) {
@@ -1413,6 +1443,34 @@ function priceLabel(price) {
 /* ==========================================
    PRODUCT DISPLAY
 ========================================== */
+
+
+function productPriceLabel(product) {
+  const pricing = product.pricing;
+
+  if (!pricing) return priceLabel(product.price);
+
+  if (pricing.mode === "option") {
+    const prices = Object.values(pricing.values);
+    const min = Math.min(...prices);
+    const max = Math.max(...prices);
+
+    return min === max
+      ? money(min)
+      : `From ${money(min)}`;
+  }
+
+  if (pricing.mode === "unit") {
+    if (pricing.unitOption) {
+      const prices = Object.values(pricing.unitPrices);
+      return `From ${money(Math.min(...prices))}`;
+    }
+
+    return `From ${money(pricing.unitPrice)}`;
+  }
+
+  return priceLabel(product.price);
+}
 
 function renderProducts() {
   const grid = document.getElementById("productGrid");
@@ -1429,7 +1487,7 @@ function renderProducts() {
     return matchesCategory && matchesSearch;
   });
 
-  if(!filtered.length) {
+  if (!filtered.length) {
     grid.innerHTML = '<div class="empty" style="grid-column:1/-1">No treats found. Try another search. ♡</div>';
     return;
   }
@@ -1445,352 +1503,10 @@ function renderProducts() {
         <h3>${product.name}</h3>
         <p class="product-description">${product.description}</p>
         <div class="product-bottom">
-          <span class="price">${priceLabel(product.price)}</span>
+          <span class="price">${productPriceLabel(product)}</span>
           <button class="add-btn" onclick="openProduct(${product.id})">VIEW ♡</button>
         </div>
       </div>
     </article>
   `).join("");
 }
-
-function filterProducts(category,button) {
-  currentCategory = category;
-
-  document.querySelectorAll(".filter-btn").forEach(btn => {
-    btn.classList.remove("active");
-  });
-
-  if(button) {
-    button.classList.add("active");
-  } else {
-    document.querySelectorAll(".filter-btn").forEach(btn => {
-      if(btn.textContent.trim() === category ||
-        (category === "All" && btn.textContent.trim() === "All")) {
-        btn.classList.add("active");
-      }
-    });
-  }
-
-  renderProducts();
-  document.getElementById("shop").scrollIntoView({behavior:"smooth"});
-}
-
-/* ==========================================
-   PRODUCT DETAILS AND CUSTOMIZATION
-========================================== */
-
-function openProduct(id) {
-  selectedProduct = products.find(p => p.id === id);
-  modalQuantity = 1;
-
-  document.getElementById("modalImage").src = selectedProduct.image;
-  document.getElementById("modalImage").alt = selectedProduct.name;
-  document.getElementById("modalCategory").textContent = selectedProduct.category;
-  document.getElementById("modalName").textContent = selectedProduct.name;
-  document.getElementById("modalDescription").textContent = selectedProduct.description;
-  document.getElementById("modalPrice").textContent = priceLabel(selectedProduct.price);
-  document.getElementById("modalQty").textContent = modalQuantity;
-
-  const fields = document.getElementById("variationFields");
-
-  fields.innerHTML = Object.entries(selectedProduct.options || {}).map(([name,options]) => `
-    <div class="field">
-      <label>${name}</label>
-      <select data-variation="${name}">
-        ${options.map(option => `<option value="${option}">${option}</option>`).join("")}
-      </select>
-    </div>
-  `).join("");
-
-  if(["Cakes"].includes(selectedProduct.category)) {
-    fields.innerHTML += `
-      <div class="field">
-        <label>Personalized message</label>
-        <input id="personalMessage" placeholder="Happy Birthday...">
-      </div>
-      <div class="field">
-        <label>Inspiration photo link (optional)</label>
-        <input id="inspirationPhoto" type="url" placeholder="Paste an image link">
-      </div>
-      <div class="field">
-        <label>Special instructions</label>
-        <textarea id="specialInstructions" placeholder="Tell us about your dream cake..."></textarea>
-      </div>
-    `;
-  } else if(selectedProduct.name === "Cupcake Bouquet") {
-    fields.innerHTML += `
-      <div class="field">
-        <label>Personalized message</label>
-        <input id="personalMessage" placeholder="Your greeting">
-      </div>
-      <div class="field">
-        <label>Special instructions</label>
-        <textarea id="specialInstructions" placeholder="Bouquet details..."></textarea>
-      </div>
-    `;
-  } else {
-    fields.innerHTML += `
-      <div class="field">
-        <label>Special instructions</label>
-        <textarea id="specialInstructions" placeholder="Any additional requests?"></textarea>
-      </div>
-    `;
-  }
-
-  document.getElementById("productModal").classList.add("show");
-}
-
-function closeModal() {
-  document.getElementById("productModal").classList.remove("show");
-}
-
-function backdropClose(event) {
-  if(event.target.id === "productModal") closeModal();
-}
-
-function changeModalQty(amount) {
-  modalQuantity = Math.max(1,Math.min(99,modalQuantity + amount));
-  document.getElementById("modalQty").textContent = modalQuantity;
-}
-
-function addFromModal() {
-  if(!selectedProduct) return;
-
-  const variations = {};
-
-  document.querySelectorAll("[data-variation]").forEach(field => {
-    variations[field.dataset.variation] = field.value;
-  });
-
-  const message = document.getElementById("personalMessage")?.value || "";
-  const inspiration = document.getElementById("inspirationPhoto")?.value || "";
-  const instructions = document.getElementById("specialInstructions")?.value || "";
-
-  const key = JSON.stringify({
-    id:selectedProduct.id,
-    variations,
-    message,
-    inspiration,
-    instructions
-  });
-
-  const existing = cart.find(item => item.key === key);
-
-  if(existing) {
-    existing.quantity += modalQuantity;
-  } else {
-    cart.push({
-      key,
-      id:selectedProduct.id,
-      name:selectedProduct.name,
-      image:selectedProduct.image,
-      price:selectedProduct.price,
-      quantity:modalQuantity,
-      variations,
-      message,
-      inspiration,
-      instructions
-    });
-  }
-
-  saveCart();
-  closeModal();
-  showToast("Sweetness added to your basket! ♡");
-}
-
-/* ==========================================
-   CART
-========================================== */
-
-function updateCart() {
-  const count = cart.reduce((sum,item) => sum + item.quantity,0);
-  document.getElementById("cartCount").textContent = count;
-
-  const container = document.getElementById("cartItems");
-
-  if(cart.length === 0) {
-    container.innerHTML = '<div class="empty">Your basket is waiting for something sweet. ♡</div>';
-  } else {
-    container.innerHTML = cart.map((item,index) => `
-      <div class="cart-item">
-        <img src="${item.image}" alt="${item.name}">
-        <div>
-          <h4>${item.name}</h4>
-          <p>Qty: ${item.quantity}</p>
-          <p>${Object.entries(item.variations || {}).map(([k,v]) => `${k}: ${v}`).join(" · ")}</p>
-          <button onclick="removeItem(${index})">Remove</button>
-          <button onclick="changeCartQty(${index},-1)"> − </button>
-          <button onclick="changeCartQty(${index},1)"> + </button>
-        </div>
-        <strong style="font-size:11px">
-          ${item.price === null ? "TBC" : money(item.price * item.quantity)}
-        </strong>
-      </div>
-    `).join("");
-  }
-
-  const hasUnknownPrice = cart.some(item => item.price === null);
-  const subtotal = cart.reduce((sum,item) => {
-    return sum + (item.price === null ? 0 : item.price * item.quantity);
-  },0);
-
-  document.getElementById("cartSubtotal").textContent =
-    hasUnknownPrice ? money(subtotal) + " + TBC items" : money(subtotal);
-
-  document.getElementById("deliveryFee").textContent =
-    STORE.deliveryFee > 0 ? money(STORE.deliveryFee) : "To be confirmed";
-
-  document.getElementById("cartTotal").textContent =
-    hasUnknownPrice || STORE.deliveryFee === 0
-      ? "To be confirmed"
-      : money(subtotal + STORE.deliveryFee);
-}
-
-function changeCartQty(index,amount) {
-  cart[index].quantity += amount;
-
-  if(cart[index].quantity <= 0) {
-    cart.splice(index,1);
-  }
-
-  saveCart();
-}
-
-function removeItem(index) {
-  cart.splice(index,1);
-  saveCart();
-}
-
-function openCart() {
-  document.getElementById("cartPanel").classList.add("open");
-}
-
-function closeCart() {
-  document.getElementById("cartPanel").classList.remove("open");
-}
-
-/* ==========================================
-   CHECKOUT
-========================================== */
-
-function goCheckout() {
-  if(!cart.length) {
-    showToast("Your basket is empty! ♡");
-    return;
-  }
-
-  closeCart();
-
-  const checkout = document.getElementById("checkout");
-  checkout.style.display = "block";
-
-  document.getElementById("checkoutSummary").innerHTML =
-    cart.map(item => `
-      ${item.quantity} × ${item.name}
-      — ${item.price === null ? "Price TBC" : money(item.price * item.quantity)}
-    `).join("<br>") +
-    `<hr style="margin:10px 0;border:0;border-top:1px solid #F0DFE5">
-    Delivery: To be confirmed<br>
-    <strong>Final amount: To be confirmed</strong>`;
-
-  document.getElementById("checkout").scrollIntoView({behavior:"smooth"});
-}
-
-function backToShop() {
-  document.getElementById("checkout").style.display = "none";
-  document.getElementById("shop").scrollIntoView({behavior:"smooth"});
-}
-
-document.getElementById("deliveryDate").min =
-  new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-  .toISOString().split("T")[0];
-
-document.getElementById("checkoutForm").addEventListener("submit",async function(event) {
-  event.preventDefault();
-
-  if(!cart.length) {
-    showToast("Your basket is empty.");
-    return;
-  }
-
-  const formData = new FormData(this);
-  const details = Object.fromEntries(formData.entries());
-
-  const orderNumber = "BB-" + Date.now().toString().slice(-8);
-
-  const orderText = `
-BLUSH & BLOOMS — ORDER REQUEST
-Order reference: ${orderNumber}
-
-CUSTOMER DETAILS
-Name: ${details.name}
-Contact: ${details.phone}
-Address: ${details.address}
-
-PREFERRED DELIVERY
-Date: ${details.date}
-Time: ${details.time}
-
-ORDER ITEMS
-${cart.map(item => `
-${item.name}
-Quantity: ${item.quantity}
-Price: ${item.price === null ? "To be confirmed" : money(item.price * item.quantity)}
-Variations: ${JSON.stringify(item.variations)}
-Message: ${item.message || "None"}
-Inspiration photo: ${item.inspiration || "None"}
-Instructions: ${item.instructions || "None"}
-`).join("\n")}
-
-Delivery fee: To be confirmed
-Final total: To be confirmed
-
-Payment preference: ${details.payment}
-Customer instructions: ${details.instructions || "None"}
-
-NOTE: This is an order request only. Availability,
-pricing, delivery and payment must be manually confirmed.
-Payment has NOT been verified.
-`;
-
-  try {
-    await navigator.clipboard.writeText(orderText);
-  } catch(error) {
-    const temporary = document.createElement("textarea");
-    temporary.value = orderText;
-    document.body.appendChild(temporary);
-    temporary.select();
-    document.execCommand("copy");
-    temporary.remove();
-  }
-
-  if(STORE.messengerURL) {
-    window.open(STORE.messengerURL,"_blank");
-    showToast("Order copied! Paste it into Messenger ♡");
-  } else {
-    alert("Your order details have been copied. Please paste them into your Blush & Blooms Messenger conversation. Your order is not confirmed yet.");
-  }
-
-  console.log("Order request:",orderText);
-});
-
-function showToast(message) {
-  const toast = document.getElementById("toast");
-  toast.textContent = message;
-  toast.classList.add("show");
-
-  setTimeout(() => {
-    toast.classList.remove("show");
-  },2500);
-}
-
-/* ==========================================
-   INITIALIZE WEBSITE
-========================================== */
-
-renderProducts();
-updateCart();
-</script>
-
-</body>
-</html>
