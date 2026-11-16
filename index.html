@@ -1510,3 +1510,48 @@ function renderProducts() {
     </article>
   `).join("");
 }
+
+  
+
+function openProduct(id) {
+  selectedProduct = products.find(product => product.id === id);
+
+  if (!selectedProduct) return;
+
+  const modal = document.getElementById("productModal");
+  const fields = document.getElementById("productFields");
+
+  document.getElementById("modalTitle").textContent = selectedProduct.name;
+  document.getElementById("modalImage").src = selectedProduct.image;
+  document.getElementById("modalCategory").textContent = selectedProduct.category;
+  document.getElementById("modalDescription").textContent = selectedProduct.description;
+
+  fields.innerHTML = Object.entries(selectedProduct.options || {}).map(([name, options]) => `
+    <label>${name}</label>
+    <select data-variation="${name}">
+      ${options.map(option => `<option value="${option}">${option}</option>`).join("")}
+    </select>
+  `).join("");
+
+  fields.querySelectorAll("select").forEach(select => {
+    select.addEventListener("change", updateModalPrice);
+  });
+
+  modal.style.display = "flex";
+
+  updateModalPrice();
+}
+
+function updateModalPrice() {
+  if (!selectedProduct) return;
+
+  const variations = {};
+
+  document.querySelectorAll("#productFields select").forEach(select => {
+    variations[select.dataset.variation] = select.value;
+  });
+
+  const price = calculateProductPrice(selectedProduct, variations);
+
+  document.getElementById("modalPrice").textContent = priceLabel(price);
+}
