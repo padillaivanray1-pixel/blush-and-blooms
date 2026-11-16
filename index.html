@@ -997,39 +997,38 @@ footer .copyright {font-size:10px;color:#C1AEB8;margin-top:30px}
 
 <div class="toast" id="toast"></div>
 
-<script>
-const SUPABASE_URL = 'https://trglawojrldqdpclzduw.supabase.co';
 
-const SUPABASE_ANON_KEY = 'sb_publishable_mt8Zj9vhQO1kzjLdt8VTbQ_dKsaRuw5';
+<script>
+/* ==========================================
+   BLUSH & BLOOMS
+   COMPLETE WEBSITE JAVASCRIPT
+========================================== */
+
+/* SUPABASE CONNECTION */
+
+const SUPABASE_URL = "https://trglawojrldqdpclzduw.supabase.co";
+
+const SUPABASE_ANON_KEY = "sb_publishable_mt8Zj9vhQO1kzjLdt8VTbQ_dKsaRuw5";
 
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_ANON_KEY
 );
-/* ==========================================
-   BLUSH & BLOOMS - STORE SETTINGS
-   EDIT YOUR BUSINESS DETAILS HERE
-========================================== */
+
+/* STORE SETTINGS */
 
 const STORE = {
   name: "Blush & Blooms",
-
-  // Add your actual Facebook Messenger page link later.
-  // Example format: https://m.me/YourPageUsername
   messengerURL: "",
-
-  // Keep zero until you decide your actual delivery fees.
   deliveryFee: 0
 };
 
 /* ==========================================
    PRODUCT CATALOG
-   null = price not yet confirmed.
-   Giant Spanish Bread is fixed at ₱25.
 ========================================== */
 
 const products = [
-  
+
   {
     id: 1,
     name: "Vintage Buttercream Cake",
@@ -1037,7 +1036,6 @@ const products = [
     price: null,
     description: "A dreamy buttercream cake for your sweetest celebrations.",
     image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=700&q=80",
-    variations: ["Size", "Flavor", "Frosting color", "Design"],
     options: {
       Size: ["4 inches", "6 inches", "8 inches", "10 inches"],
       Flavor: ["Chocolate", "Vanilla", "Red Velvet", "Mocha", "Ube"],
@@ -1055,6 +1053,7 @@ const products = [
       }
     }
   },
+
   {
     id: 2,
     name: "Vintage Heart Cake",
@@ -1062,7 +1061,6 @@ const products = [
     price: null,
     description: "Romantic heart-shaped cakes with vintage piping details.",
     image: "https://images.unsplash.com/photo-1562777717-dc6984f65a63?auto=format&fit=crop&w=700&q=80",
-    variations: ["Size", "Flavor", "Frosting color"],
     options: {
       Size: ["4 inches", "6 inches", "8 inches"],
       Flavor: ["Chocolate", "Vanilla", "Red Velvet", "Ube"],
@@ -1078,6 +1076,7 @@ const products = [
       }
     }
   },
+
   {
     id: 3,
     name: "Custom Celebration Cake",
@@ -1085,7 +1084,6 @@ const products = [
     price: null,
     description: "A personalized centerpiece for your most special day.",
     image: "https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?auto=format&fit=crop&w=700&q=80",
-    variations: ["Size", "Flavor", "Design", "Frosting color"],
     options: {
       Size: ["6 inches", "8 inches", "10 inches"],
       Flavor: ["Chocolate", "Vanilla", "Red Velvet", "Mocha", "Ube"],
@@ -1102,6 +1100,7 @@ const products = [
       }
     }
   },
+
   {
     id: 4,
     name: "Classic Flower Cupcakes",
@@ -1109,7 +1108,6 @@ const products = [
     price: null,
     description: "Soft, fluffy cupcakes decorated with beautiful buttercream flowers.",
     image: "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=700&q=80",
-    variations: ["Flavor", "Quantity", "Flower color"],
     options: {
       Flavor: ["Chocolate", "Vanilla", "Red Velvet", "Ube"],
       Quantity: ["7 pieces", "14 pieces", "21 pieces", "28 pieces", "35 pieces", "42 pieces", "49 pieces", "56 pieces", "63 pieces", "70 pieces", "77 pieces", "84 pieces", "91 pieces", "98 pieces"],
@@ -1136,6 +1134,7 @@ const products = [
       }
     }
   },
+
   {
     id: 5,
     name: "Large Flower Cupcakes",
@@ -1143,7 +1142,6 @@ const products = [
     price: null,
     description: "Generously sized cupcakes topped with beautiful buttercream flowers.",
     image: "https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=700&q=80",
-    variations: ["Flavor", "Quantity", "Flower color"],
     options: {
       Flavor: ["Chocolate", "Vanilla", "Red Velvet", "Ube"],
       Quantity: ["7 pieces", "14 pieces", "21 pieces", "28 pieces", "35 pieces", "42 pieces", "49 pieces", "56 pieces", "63 pieces", "70 pieces", "77 pieces", "84 pieces", "91 pieces", "98 pieces"],
@@ -1170,6 +1168,7 @@ const products = [
       }
     }
   },
+
   {
     id: 6,
     name: "Flower Cupcake Bouquet",
@@ -1177,7 +1176,6 @@ const products = [
     price: null,
     description: "A beautiful bouquet made entirely of individual flower-decorated cupcakes.",
     image: "https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=700&q=80",
-    variations: ["Package", "Flavor", "Wrapping color", "Greeting card"],
     options: {
       Package: ["Regular - 7 cupcakes", "Regular - 12 cupcakes", "Regular - 19 cupcakes", "Large - 7 cupcakes", "Large - 12 cupcakes", "Large - 19 cupcakes"],
       Flavor: ["Chocolate", "Vanilla", "Mixed flavors"],
@@ -1197,6 +1195,7 @@ const products = [
       }
     }
   },
+
   {
     id: 7,
     name: "Premium Donuts",
@@ -1204,7 +1203,6 @@ const products = [
     price: null,
     description: "Delightful donuts with regular and premium flavors. Mix your favorites!",
     image: "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=700&q=80",
-    variations: ["Flavor", "Quantity"],
     options: {
       Flavor: ["Chocolate", "Matcha", "Strawberry", "Cookies & Cream", "Yema", "Ube", "Biscoff", "Nutella"],
       Quantity: ["1 piece", "6 pieces", "12 pieces"]
@@ -1214,17 +1212,18 @@ const products = [
       unitOption: "Flavor",
       quantityOption: "Quantity",
       unitPrices: {
-        "Chocolate": 30,
-        "Matcha": 30,
-        "Strawberry": 30,
+        Chocolate: 30,
+        Matcha: 30,
+        Strawberry: 30,
         "Cookies & Cream": 30,
-        "Yema": 30,
-        "Ube": 30,
-        "Biscoff": 75,
-        "Nutella": 75
+        Yema: 30,
+        Ube: 30,
+        Biscoff: 75,
+        Nutella: 75
       }
     }
   },
+
   {
     id: 8,
     name: "Messymada",
@@ -1232,7 +1231,6 @@ const products = [
     price: null,
     description: "Our delicious Messymada with your choice of regular or premium flavors.",
     image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=700&q=80",
-    variations: ["Flavor", "Quantity"],
     options: {
       Flavor: ["Salted Egg", "Yema", "Ube", "Chocolate", "Matcha", "Strawberry", "Biscoff", "Nutella"],
       Quantity: ["1 piece", "3 pieces", "6 pieces", "12 pieces"]
@@ -1243,16 +1241,17 @@ const products = [
       quantityOption: "Quantity",
       unitPrices: {
         "Salted Egg": 30,
-        "Yema": 30,
-        "Ube": 30,
-        "Chocolate": 30,
-        "Matcha": 30,
-        "Strawberry": 30,
-        "Biscoff": 75,
-        "Nutella": 75
+        Yema: 30,
+        Ube: 30,
+        Chocolate: 30,
+        Matcha: 30,
+        Strawberry: 30,
+        Biscoff: 75,
+        Nutella: 75
       }
     }
   },
+
   {
     id: 9,
     name: "Giant Spanish Bread",
@@ -1260,7 +1259,6 @@ const products = [
     price: 25,
     description: "A generously sized Filipino Spanish bread. ₱25 each.",
     image: "https://images.unsplash.com/photo-1608198093002-ad4e005484c2?auto=format&fit=crop&w=700&q=80",
-    variations: ["Quantity"],
     options: {
       Quantity: ["1 piece", "2 pieces", "3 pieces", "6 pieces", "12 pieces"]
     },
@@ -1270,6 +1268,7 @@ const products = [
       unitPrice: 25
     }
   },
+
   {
     id: 10,
     name: "Premium Cookies",
@@ -1277,7 +1276,6 @@ const products = [
     price: null,
     description: "Delicious premium cookies in Biscoff, Matcha, and Red Velvet flavors.",
     image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=700&q=80",
-    variations: ["Flavor", "Quantity"],
     options: {
       Flavor: ["Biscoff", "Matcha", "Red Velvet"],
       Quantity: ["1 piece", "6 pieces", "12 pieces"]
@@ -1288,6 +1286,7 @@ const products = [
       unitPrice: 45
     }
   },
+
   {
     id: 11,
     name: "Fudgy Brownies",
@@ -1295,7 +1294,6 @@ const products = [
     price: null,
     description: "Rich and chocolatey brownies for dessert lovers.",
     image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=700&q=80",
-    variations: ["Quantity"],
     options: {
       Quantity: ["1 piece", "4 pieces", "6 pieces", "12 pieces"]
     },
@@ -1310,6 +1308,7 @@ const products = [
       }
     }
   },
+
   {
     id: 12,
     name: "Egg Tart",
@@ -1317,7 +1316,6 @@ const products = [
     price: null,
     description: "Delicious egg tarts available in small and big sizes.",
     image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=700&q=80",
-    variations: ["Size", "Quantity"],
     options: {
       Size: ["Small", "Big"],
       Quantity: ["1 piece", "4 pieces", "6 pieces", "12 pieces"]
@@ -1327,11 +1325,12 @@ const products = [
       unitOption: "Size",
       quantityOption: "Quantity",
       unitPrices: {
-        "Small": 15,
-        "Big": 35
+        Small: 15,
+        Big: 35
       }
     }
   },
+
   {
     id: 13,
     name: "Chocolate Lava Crinkles",
@@ -1339,7 +1338,6 @@ const products = [
     price: null,
     description: "Soft chocolate crinkles with a delicious gooey lava filling.",
     image: "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?auto=format&fit=crop&w=700&q=80",
-    variations: ["Size", "Quantity"],
     options: {
       Size: ["Small", "Big"],
       Quantity: ["1 piece", "6 pieces", "12 pieces"]
@@ -1349,11 +1347,12 @@ const products = [
       unitOption: "Size",
       quantityOption: "Quantity",
       unitPrices: {
-        "Small": 15,
-        "Big": 40
+        Small: 15,
+        Big: 40
       }
     }
   },
+
   {
     id: 14,
     name: "Number Flower Cupcake",
@@ -1361,7 +1360,6 @@ const products = [
     price: null,
     description: "Individual flower-decorated cupcakes arranged into beautiful number shapes.",
     image: "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=700&q=80",
-    variations: ["Design", "Flavor", "Flower color"],
     options: {
       Design: ["Single number", "Double number"],
       Flavor: ["Chocolate", "Vanilla", "Red Velvet", "Ube"],
@@ -1376,35 +1374,49 @@ const products = [
       }
     }
   }
+
 ];
 
 /* ==========================================
-   CART STORAGE
+   CART AND WEBSITE STATE
 ========================================== */
 
 let cart = [];
 
 try {
-  cart = JSON.parse(localStorage.getItem("blushBloomsCart")) || [];
-} catch(error) {
+  const savedCart = JSON.parse(
+    localStorage.getItem("blushBloomsCart")
+  );
+
+  cart = Array.isArray(savedCart) ? savedCart : [];
+} catch (error) {
   cart = [];
 }
 
 let currentCategory = "All";
 let selectedProduct = null;
-let modalQuantity = 1;
 
-function saveCart() {
-  localStorage.setItem("blushBloomsCart",JSON.stringify(cart));
-  updateCart();
-}
+/* ==========================================
+   GENERAL HELPERS
+========================================== */
 
 function money(value) {
-  return "₱" + Number(value).toLocaleString("en-PH",{
-    minimumFractionDigits:2,
-    maximumFractionDigits:2
-   });
+  return "₱" + Number(value).toLocaleString("en-PH", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
 }
+
+function priceLabel(price) {
+  return price === null || price === undefined
+    ? "Price to be confirmed"
+    : money(price);
+}
+
+/* ==========================================
+   PRODUCT PRICING
+========================================== */
+
 function calculateProductPrice(product, variations) {
   const pricing = product.pricing;
 
@@ -1436,15 +1448,6 @@ function calculateProductPrice(product, variations) {
   return product.price ?? null;
 }
 
-function priceLabel(price) {
-  return price === null ? "Price to be confirmed" : money(price);
-}
-
-/* ==========================================
-   PRODUCT DISPLAY
-========================================== */
-
-
 function productPriceLabel(product) {
   const pricing = product.pricing;
 
@@ -1472,17 +1475,45 @@ function productPriceLabel(product) {
   return priceLabel(product.price);
 }
 
-function filterProducts(category) {
+/* ==========================================
+   PRODUCT FILTERS
+========================================== */
+
+function filterProducts(category, button) {
   currentCategory = category;
+
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  if (button) {
+    button.classList.add("active");
+  } else {
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      if (btn.textContent.trim() === category) {
+        btn.classList.add("active");
+      }
+    });
+  }
+
   renderProducts();
 }
 
+/* ==========================================
+   DISPLAY PRODUCTS
+========================================== */
+
 function renderProducts() {
   const grid = document.getElementById("productGrid");
-  const search = document.getElementById("searchInput").value.toLowerCase();
+  const searchInput = document.getElementById("searchInput");
+
+  if (!grid || !searchInput) return;
+
+  const search = searchInput.value.toLowerCase().trim();
 
   const filtered = products.filter(product => {
-    const matchesCategory = currentCategory === "All" ||
+    const matchesCategory =
+      currentCategory === "All" ||
       product.category === currentCategory;
 
     const matchesSearch =
@@ -1493,51 +1524,76 @@ function renderProducts() {
   });
 
   if (!filtered.length) {
-    grid.innerHTML = '<div class="empty" style="grid-column:1/-1">No treats found. Try another search. ♡</div>';
+    grid.innerHTML =
+      '<div class="empty" style="grid-column:1/-1">No treats found. Try another search. ♡</div>';
     return;
   }
 
   grid.innerHTML = filtered.map(product => `
     <article class="product-card">
       <div class="product-photo" onclick="openProduct(${product.id})">
-        <img src="${product.image}" alt="${product.name}" loading="lazy">
+        <img
+          src="${product.image}"
+          alt="${product.name}"
+          loading="lazy"
+        >
         <span class="product-tag">${product.category}</span>
       </div>
+
       <div class="product-info">
         <div class="category-name">${product.category}</div>
         <h3>${product.name}</h3>
         <p class="product-description">${product.description}</p>
+
         <div class="product-bottom">
           <span class="price">${productPriceLabel(product)}</span>
-          <button class="add-btn" onclick="openProduct(${product.id})">VIEW ♡</button>
+          <button
+            class="add-btn"
+            onclick="openProduct(${product.id})"
+          >VIEW ♡</button>
         </div>
       </div>
     </article>
   `).join("");
 }
 
-  
-
+/* ==========================================
+   PRODUCT CUSTOMIZATION
+========================================== */
 
 function openProduct(id) {
-  selectedProduct = products.find(product => product.id === id);
+  selectedProduct = products.find(
+    product => product.id === id
+  );
 
   if (!selectedProduct) return;
 
   const modal = document.getElementById("productModal");
   const fields = document.getElementById("variationFields");
 
-  document.getElementById("modalName").textContent = selectedProduct.name;
-  document.getElementById("modalImage").src = selectedProduct.image;
-  document.getElementById("modalCategory").textContent = selectedProduct.category;
-  document.getElementById("modalDescription").textContent = selectedProduct.description;
+  document.getElementById("modalName").textContent =
+    selectedProduct.name;
+
+  document.getElementById("modalImage").src =
+    selectedProduct.image;
+
+  document.getElementById("modalCategory").textContent =
+    selectedProduct.category;
+
+  document.getElementById("modalDescription").textContent =
+    selectedProduct.description;
+
   document.getElementById("modalQty").textContent = "1";
 
-  fields.innerHTML = Object.entries(selectedProduct.options || {}).map(([name, options]) => `
+  fields.innerHTML = Object.entries(
+    selectedProduct.options || {}
+  ).map(([name, options]) => `
     <div class="field">
       <label>${name}</label>
       <select data-variation="${name}">
-        ${options.map(option => `<option value="${option}">${option}</option>`).join("")}
+        ${options.map(option => `
+          <option value="${option}">${option}</option>
+        `).join("")}
       </select>
     </div>
   `).join("");
@@ -1547,22 +1603,28 @@ function openProduct(id) {
   });
 
   modal.classList.add("show");
+
   updateModalPrice();
 }
-
 
 function updateModalPrice() {
   if (!selectedProduct) return;
 
   const variations = {};
 
-  document.querySelectorAll("#variationFields select").forEach(select => {
+  document.querySelectorAll(
+    "#variationFields select"
+  ).forEach(select => {
     variations[select.dataset.variation] = select.value;
   });
 
-  const price = calculateProductPrice(selectedProduct, variations);
+  const price = calculateProductPrice(
+    selectedProduct,
+    variations
+  );
 
-  document.getElementById("modalPrice").textContent = priceLabel(price);
+  document.getElementById("modalPrice").textContent =
+    priceLabel(price);
 }
 
 function closeProduct() {
@@ -1581,25 +1643,32 @@ function backdropClose(event) {
 }
 
 function changeModalQty(change) {
-  const quantityDisplay = document.getElementById("modalQty");
+  const display = document.getElementById("modalQty");
 
-  if (!quantityDisplay) return;
+  const current = parseInt(display.textContent, 10) || 1;
 
-  const current = parseInt(quantityDisplay.textContent, 10) || 1;
-
-  quantityDisplay.textContent = Math.max(1, current + change);
+  display.textContent = Math.max(1, current + change);
 }
+
+/* ==========================================
+   ADD PRODUCTS TO CART
+========================================== */
 
 function addFromModal() {
   if (!selectedProduct) return;
 
   const variations = {};
 
-  document.querySelectorAll("#variationFields select").forEach(select => {
+  document.querySelectorAll(
+    "#variationFields select"
+  ).forEach(select => {
     variations[select.dataset.variation] = select.value;
   });
 
-  const price = calculateProductPrice(selectedProduct, variations);
+  const price = calculateProductPrice(
+    selectedProduct,
+    variations
+  );
 
   if (price === null || price === undefined) {
     alert("Please select your product options.");
@@ -1610,7 +1679,6 @@ function addFromModal() {
     document.getElementById("modalQty").textContent,
     10
   ) || 1;
-  
 
   cart.push({
     id: selectedProduct.id,
@@ -1627,6 +1695,26 @@ function addFromModal() {
   alert("Added to cart! ♡");
 }
 
+/* ==========================================
+   CART STORAGE
+========================================== */
+
+function saveCart() {
+  localStorage.setItem(
+    "blushBloomsCart",
+    JSON.stringify(cart)
+  );
+
+  updateCart();
+}
+
+function getCartSubtotal() {
+  return cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+}
+
 function updateCart() {
   const cartItems = document.getElementById("cartItems");
   const cartCount = document.getElementById("cartCount");
@@ -1639,36 +1727,79 @@ function updateCart() {
     0
   );
 
-  cartCount.textContent = itemCount;
+  if (cartCount) {
+    cartCount.textContent = itemCount;
+  }
 
   if (cart.length === 0) {
-    cartItems.innerHTML = '<p class="empty">Your cart is empty. ♡</p>';
-    cartSubtotal.textContent = money(0);
+    cartItems.innerHTML =
+      '<p class="empty">Your cart is empty. ♡</p>';
+
+    if (cartSubtotal) {
+      cartSubtotal.textContent = money(0);
+    }
+
+    updateCheckoutSummary();
     return;
   }
 
   cartItems.innerHTML = cart.map((item, index) => `
     <div class="cart-item">
       <img src="${item.image}" alt="${item.name}">
+
       <div>
         <h4>${item.name}</h4>
-        <p>${Object.entries(item.variations || {})
-          .map(([key, value]) => `${key}: ${value}`)
-          .join(" · ")}</p>
+
+        <p>
+          ${Object.entries(item.variations || {})
+            .map(([key, value]) => `${key}: ${value}`)
+            .join(" · ")}
+        </p>
+
         <p>${money(item.price)} × ${item.quantity}</p>
-        <button onclick="removeCartItem(${index})">Remove</button>
+
+        <button onclick="removeCartItem(${index})">
+          Remove
+        </button>
       </div>
     </div>
   `).join("");
 
-  cartSubtotal.textContent = money(getCartSubtotal());
+  if (cartSubtotal) {
+    cartSubtotal.textContent = money(getCartSubtotal());
+  }
+
+  const deliveryFee = document.getElementById("deliveryFee");
+  const cartTotal = document.getElementById("cartTotal");
+
+  if (deliveryFee) {
+    deliveryFee.textContent = "To be confirmed";
+  }
+
+  if (cartTotal) {
+    cartTotal.textContent = "To be confirmed";
+  }
+
+  updateCheckoutSummary();
 }
-  function removeCartItem(index) {
+
+function removeCartItem(index) {
+  if (index < 0 || index >= cart.length) return;
+
   cart.splice(index, 1);
   saveCart();
-  updateCart();
 }
-  function openCart() {
+
+function clearCart() {
+  cart = [];
+  saveCart();
+}
+
+/* ==========================================
+   CART OPEN AND CLOSE
+========================================== */
+
+function openCart() {
   document.getElementById("cartPanel").classList.add("open");
 }
 
@@ -1676,13 +1807,11 @@ function closeCart() {
   document.getElementById("cartPanel").classList.remove("open");
 }
 
-function getCartSubtotal() {
-  return cart.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
-}
-  function goCheckout() {
+/* ==========================================
+   CHECKOUT NAVIGATION
+========================================== */
+
+function goCheckout() {
   if (cart.length === 0) {
     alert("Your cart is empty. Please add a product first.");
     return;
@@ -1690,24 +1819,104 @@ function getCartSubtotal() {
 
   closeCart();
 
-  document.getElementById("checkout").scrollIntoView({
+  const checkout = document.getElementById("checkout");
+
+  checkout.style.display = "block";
+
+  updateCheckoutSummary();
+
+  checkout.scrollIntoView({
     behavior: "smooth"
   });
 }
-  function backToShop() {
+
+function backToShop() {
+  document.getElementById("checkout").style.display = "none";
+
   document.getElementById("shop").scrollIntoView({
     behavior: "smooth"
   });
 }
-  document.getElementById("checkoutForm").addEventListener("submit", function(event) {
-  event.preventDefault();
+
+/* ==========================================
+   CHECKOUT SUMMARY
+========================================== */
+
+function updateCheckoutSummary() {
+  const summary = document.getElementById("checkoutSummary");
+
+  if (!summary) return;
 
   if (cart.length === 0) {
-    alert("Your cart is empty. Please add products first.");
+    summary.innerHTML = "Your cart is empty.";
     return;
   }
 
-  alert("Your checkout form is ready! We will connect order submission next.");
-});
+  const itemsHTML = cart.map(item => `
+    <div style="display:flex;justify-content:space-between;gap:10px">
+      <span>${item.name} × ${item.quantity}</span>
+      <strong>${money(item.price * item.quantity)}</strong>
+    </div>
+  `).join("");
+
+  summary.innerHTML = `
+    <strong>YOUR ORDER SUMMARY</strong>
+    ${itemsHTML}
+    <hr style="border:0;border-top:1px solid #F0DFE5;margin:10px 0">
+    <div style="display:flex;justify-content:space-between">
+      <strong>Subtotal</strong>
+      <strong>${money(getCartSubtotal())}</strong>
+    </div>
+    <p style="font-size:10px;color:#927F8A">
+      Delivery fee and final order confirmation are still subject to verification.
+    </p>
+  `;
+}
+
+/* ==========================================
+   CHECKOUT FORM
+   TEMPORARY TEST HANDLER
+========================================== */
+
+const checkoutForm = document.getElementById("checkoutForm");
+
+if (checkoutForm) {
+  checkoutForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    if (cart.length === 0) {
+      alert("Your cart is empty. Please add products first.");
+      return;
+    }
+
+    if (!checkoutForm.reportValidity()) {
+      return;
+    }
+
+    alert(
+      "Thank you for choosing Blush & Blooms! ♡\n\nYour order form is ready. Order submission will be connected to the database next."
+    );
+  });
+}
+
+/* ==========================================
+   INITIALIZE WEBSITE
+========================================== */
+
+document.addEventListener("DOMContentLoaded", function() {
   renderProducts();
-updateCart();
+  updateCart();
+
+  const deliveryDate = document.getElementById("deliveryDate");
+
+  if (deliveryDate) {
+    const today = new Date();
+    const localDate = new Date(
+      today.getTime() - today.getTimezoneOffset() * 60000
+    ).toISOString().split("T")[0];
+
+    deliveryDate.min = localDate;
+  }
+});
+
+</script>
