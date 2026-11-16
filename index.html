@@ -1422,11 +1422,13 @@ function calculateProductPrice(product, variations) {
 
   if (!pricing) return product.price ?? null;
 
+  // Fixed package prices, such as Fudgy Brownies
   if (pricing.mode === "option") {
     const selected = variations[pricing.option];
     return pricing.values[selected] ?? null;
   }
 
+  // Unit-based pricing
   if (pricing.mode === "unit") {
     let unitPrice = pricing.unitPrice;
 
@@ -1447,7 +1449,6 @@ function calculateProductPrice(product, variations) {
 
   return product.price ?? null;
 }
-
 function productPriceLabel(product) {
   const pricing = product.pricing;
 
@@ -1622,7 +1623,8 @@ function updateModalPrice() {
     selectedProduct,
     variations
   );
-
+console.log("Selected variations:", variations);
+console.log("Calculated price:", price);
   document.getElementById("modalPrice").textContent =
     priceLabel(price);
 }
