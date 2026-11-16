@@ -1613,20 +1613,17 @@ function updateModalPrice() {
 
   const variations = {};
 
-  document.querySelectorAll(
-    "#variationFields select"
-  ).forEach(select => {
+  document.querySelectorAll("#variationFields select").forEach(select => {
     variations[select.dataset.variation] = select.value;
   });
 
-  const price = calculateProductPrice(
-    selectedProduct,
-    variations
-  );
-console.log("Selected variations:", variations);
-console.log("Calculated price:", price);
-  document.getElementById("modalPrice").textContent =
-    priceLabel(price);
+  const price = calculateProductPrice(selectedProduct, variations);
+
+  const priceElement = document.getElementById("modalPrice");
+
+  if (priceElement) {
+    priceElement.textContent = priceLabel(price);
+  }
 }
 
 function closeProduct() {
