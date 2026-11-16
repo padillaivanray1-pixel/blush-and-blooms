@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blush & Blooms | Admin Login</title>
+  <title>Blush & Blooms | Admin Dashboard</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -15,33 +15,74 @@
 
     body {
       margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #fff0f5;
+      background: #fff5f8;
       font-family: Arial, sans-serif;
-      padding: 20px;
+      color: #49343d;
+    }
+
+    header {
+      background: white;
+      padding: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    header h1 {
+      margin: 0;
+      color: #c45b83;
+      font-size: 23px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 12px 17px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .primary-btn {
+      background: #d9789e;
+      color: white;
+    }
+
+    .logout-btn {
+      background: #f3e2e9;
+      color: #a34c70;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 18px;
     }
 
     .login-card {
       background: white;
-      width: 100%;
       max-width: 400px;
+      margin: 70px auto;
       padding: 35px;
       border-radius: 18px;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+      box-shadow: 0 5px 25px rgba(0,0,0,0.07);
       text-align: center;
     }
 
-    h1 {
+    .login-card h2 {
       color: #c45b83;
-      margin-bottom: 8px;
-    }
-
-    p {
-      color: #777;
-      margin-bottom: 25px;
     }
 
     input {
@@ -53,20 +94,8 @@
       font-size: 15px;
     }
 
-    button {
+    .login-card button {
       width: 100%;
-      padding: 14px;
-      background: #d9789e;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #c45b83;
     }
 
     #message {
@@ -74,76 +103,480 @@
       font-size: 14px;
       overflow-wrap: anywhere;
     }
+
+    .dashboard-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .dashboard-heading h2 {
+      color: #c45b83;
+      margin: 0;
+    }
+
+    #orderCount {
+      color: #8a6978;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    .order-card {
+      background: white;
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+      border: 1px solid #f4dce6;
+    }
+
+    .order-top {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      border-bottom: 1px solid #f3e2e9;
+      padding-bottom: 14px;
+      margin-bottom: 16px;
+    }
+
+    .order-top h3 {
+      margin: 0;
+      color: #b9537c;
+    }
+
+    .order-date {
+      font-size: 13px;
+      color: #888;
+      margin-top: 6px;
+    }
+
+    .status {
+      background: #fff0c9;
+      color: #8c681b;
+      padding: 7px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      height: fit-content;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .detail h4 {
+      color: #bd6688;
+      margin: 0 0 9px;
+    }
+
+    .detail p {
+      margin: 6px 0;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .product-item {
+      padding: 12px;
+      background: #fff7fa;
+      border-radius: 9px;
+      margin-bottom: 9px;
+      font-size: 14px;
+    }
+
+    .product-item p {
+      margin: 5px 0;
+    }
+
+    .total {
+      font-weight: bold;
+      color: #b9537c;
+      font-size: 17px;
+    }
+
+    .empty-message {
+      text-align: center;
+      padding: 40px 15px;
+      background: white;
+      border-radius: 14px;
+      color: #888;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        align-items: flex-start;
+      }
+
+      .header-actions {
+        width: 100%;
+      }
+
+      .header-actions button {
+        flex: 1;
+      }
+    }
   </style>
 </head>
 
 <body>
 
-  <div class="login-card">
-    <h1>Blush & Blooms</h1>
-    <p>Admin Dashboard Login</p>
+  <header>
+    <h1>Blush & Blooms ♡</h1>
 
-    <form id="loginForm">
-      <input
-        type="email"
-        id="email"
-        placeholder="Admin email"
-        required
-      >
-
-      <input
-        type="password"
-        id="password"
-        placeholder="Password"
-        required
-      >
-
-      <button type="submit" id="loginButton">
-        LOGIN
+    <div class="header-actions" id="headerActions" hidden>
+      <button class="primary-btn" id="refreshButton">
+        REFRESH ORDERS
       </button>
-    </form>
 
-    <div id="message"></div>
-  </div>
+      <button class="logout-btn" id="logoutButton">
+        LOG OUT
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ADMIN LOGIN -->
+
+    <section class="login-card" id="loginSection">
+      <h2>Admin Login</h2>
+      <p>Welcome back to Blush & Blooms!</p>
+
+      <form id="loginForm">
+        <input
+          type="email"
+          id="email"
+          placeholder="Admin email"
+          required
+        >
+
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
+          required
+        >
+
+        <button type="submit" class="primary-btn" id="loginButton">
+          LOGIN
+        </button>
+      </form>
+
+      <div id="message"></div>
+    </section>
+
+    <!-- ORDERS DASHBOARD -->
+
+    <section id="dashboardSection" hidden>
+
+      <div class="dashboard-heading">
+        <div>
+          <h2>Customer Orders</h2>
+          <div id="orderCount">Loading orders...</div>
+        </div>
+      </div>
+
+      <div id="ordersContainer">
+        <div class="empty-message">Loading orders...</div>
+      </div>
+
+    </section>
+
+  </main>
 
   <script>
     const SUPABASE_URL = "https://trglawojrldqdpclzduw.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publishable_mt8Zj9vhQO1kzjLdt8VTbQ_dKsaRuw5";
+
+    const SUPABASE_ANON_KEY =
+      "sb_publishable_mt8Zj9vhQO1kzjLdt8VTbQ_dKsaRuw5";
+
+    const ADMIN_USER_ID =
+      "207e1d4f-bcba-4409-962e-c68a72ba20c8";
 
     const supabaseClient = window.supabase.createClient(
       SUPABASE_URL,
       SUPABASE_ANON_KEY
     );
 
+    const loginSection = document.getElementById("loginSection");
+    const dashboardSection = document.getElementById("dashboardSection");
+    const headerActions = document.getElementById("headerActions");
+
     const loginForm = document.getElementById("loginForm");
-    const message = document.getElementById("message");
     const loginButton = document.getElementById("loginButton");
+    const message = document.getElementById("message");
+
+    const ordersContainer = document.getElementById("ordersContainer");
+    const orderCount = document.getElementById("orderCount");
+
+    // ESCAPE CUSTOMER DATA BEFORE DISPLAYING IT
+
+    function escapeHTML(value) {
+      return String(value ?? "").replace(/[&<>"']/g, function(char) {
+        return {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+        }[char];
+      });
+    }
+
+    function money(value) {
+      if (value === null || value === undefined || value === "") {
+        return "To be confirmed";
+      }
+
+      return "₱" + Number(value).toLocaleString("en-PH", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
+    function showDashboard() {
+      loginSection.hidden = true;
+      dashboardSection.hidden = false;
+      headerActions.hidden = false;
+    }
+
+    function showLogin() {
+      loginSection.hidden = false;
+      dashboardSection.hidden = true;
+      headerActions.hidden = true;
+    }
+
+    // LOGIN
 
     loginForm.addEventListener("submit", async function(event) {
       event.preventDefault();
 
-      message.textContent = "Logging in...";
       loginButton.disabled = true;
+      message.textContent = "Logging in...";
 
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
+      try {
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
 
-      const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email: email,
-        password: password
-      });
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
+          email,
+          password
+        });
 
-      loginButton.disabled = false;
+        if (error) {
+          throw error;
+        }
+
+        if (data.user.id !== ADMIN_USER_ID) {
+          await supabaseClient.auth.signOut();
+          throw new Error("This account is not authorized to access the admin dashboard.");
+        }
+
+        message.textContent = "Login successful!";
+        message.style.color = "green";
+
+        showDashboard();
+        await loadOrders();
+
+      } catch (error) {
+        message.textContent = error.message;
+        message.style.color = "red";
+
+      } finally {
+        loginButton.disabled = false;
+      }
+    });
+
+    // LOAD CUSTOMER ORDERS
+
+    async function loadOrders() {
+      ordersContainer.innerHTML =
+        '<div class="empty-message">Loading orders...</div>';
+
+      orderCount.textContent = "Loading orders...";
+
+      try {
+        const { data: orders, error } = await supabaseClient
+          .from("orders")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        if (error) {
+          throw error;
+        }
+
+        orderCount.textContent =
+          orders.length + (orders.length === 1 ? " order received" : " orders received");
+
+        if (orders.length === 0) {
+          ordersContainer.innerHTML =
+            '<div class="empty-message">No customer orders yet.</div>';
+          return;
+        }
+
+        ordersContainer.innerHTML = orders.map(order => {
+
+          const items = Array.isArray(order.order_items)
+            ? order.order_items
+            : [];
+
+          const productsHTML = items.map(item => {
+
+            const variations = item.variations || {};
+
+            const variationsHTML = Object.entries(variations).map(([key, value]) => {
+              return `<p>${escapeHTML(key)}: ${escapeHTML(value)}</p>`;
+            }).join("");
+
+            return `
+              <div class="product-item">
+                <strong>${escapeHTML(item.name)}</strong>
+                <p>Quantity ordered: ${escapeHTML(item.quantity)}</p>
+                <p>Price: ${money(item.price)}</p>
+                <p>Line total: ${money(item.line_total)}</p>
+                ${variationsHTML}
+              </div>
+            `;
+
+          }).join("");
+
+          const createdAt = order.created_at
+            ? new Date(order.created_at).toLocaleString("en-PH")
+            : "Not available";
+
+          return `
+            <article class="order-card">
+
+              <div class="order-top">
+                <div>
+                  <h3>Order #${escapeHTML(order.id)}</h3>
+                  <div class="order-date">
+                    Received: ${escapeHTML(createdAt)}
+                  </div>
+                </div>
+
+                <span class="status">
+                  ${escapeHTML(order.status || "Pending")}
+                </span>
+              </div>
+
+              <div class="detail-grid">
+
+                <div class="detail">
+                  <h4>Customer Details</h4>
+                  <p><strong>Name:</strong> ${escapeHTML(order.customer_name)}</p>
+                  <p><strong>Phone:</strong> ${escapeHTML(order.phone)}</p>
+                  <p><strong>Email:</strong> ${escapeHTML(order.customer_email || "Not provided")}</p>
+                  <p><strong>Address:</strong> ${escapeHTML(order.delivery_address)}</p>
+                </div>
+
+                <div class="detail">
+                  <h4>Delivery Details</h4>
+                  <p><strong>Type:</strong> ${escapeHTML(order.order_type || "Not specified")}</p>
+                  <p><strong>Date:</strong> ${escapeHTML(order.preferred_date || "Not specified")}</p>
+                  <p><strong>Time:</strong> ${escapeHTML(order.preferred_time || "Not specified")}</p>
+                  <p><strong>Instructions:</strong> ${escapeHTML(order.special_instructions || "None")}</p>
+                </div>
+
+                <div class="detail">
+                  <h4>Payment Details</h4>
+                  <p><strong>Method:</strong> ${escapeHTML(order.payment_method || "Not specified")}</p>
+                  <p><strong>Payment status:</strong> ${escapeHTML(order.payment_status || "Unpaid")}</p>
+                  <p><strong>Subtotal:</strong> ${money(order.subtotal)}</p>
+                  <p><strong>Delivery fee:</strong> ${money(order.delivery_fee)}</p>
+                  <p class="total"><strong>Total:</strong> ${money(order.total)}</p>
+                </div>
+
+              </div>
+
+              <div class="detail" style="margin-top: 22px;">
+                <h4>Ordered Products</h4>
+                ${productsHTML || "<p>No product details available.</p>"}
+              </div>
+
+            </article>
+          `;
+
+        }).join("");
+
+      } catch (error) {
+        console.error("Order loading error:", error);
+
+        orderCount.textContent = "Unable to load orders";
+
+        ordersContainer.innerHTML = `
+          <div class="empty-message">
+            <strong>We couldn't load your orders.</strong>
+            <p>${escapeHTML(error.message)}</p>
+            <p>Check your Supabase permissions and try again.</p>
+          </div>
+        `;
+      }
+    }
+
+    // REFRESH ORDERS
+
+    document.getElementById("refreshButton").addEventListener("click", async function() {
+      this.disabled = true;
+      await loadOrders();
+      this.disabled = false;
+    });
+
+    // LOG OUT
+
+    document.getElementById("logoutButton").addEventListener("click", async function() {
+      const { error } = await supabaseClient.auth.signOut();
 
       if (error) {
-        message.textContent = error.message;
+        alert(error.message);
+        return;
+      }
+
+      showLogin();
+      loginForm.reset();
+      message.textContent = "";
+      ordersContainer.innerHTML = "";
+    });
+
+    // CHECK EXISTING SESSION
+
+    async function initializeAdmin() {
+      const { data, error } = await supabaseClient.auth.getSession();
+
+      if (error) {
+        showLogin();
+        return;
+      }
+
+      const user = data.session?.user;
+
+      if (!user) {
+        showLogin();
+        return;
+      }
+
+      if (user.id !== ADMIN_USER_ID) {
+        await supabaseClient.auth.signOut();
+        showLogin();
+        message.textContent = "Unauthorized account.";
         message.style.color = "red";
         return;
       }
 
-      message.textContent = "Login successful!";
-      message.style.color = "green";
-    });
+      showDashboard();
+      await loadOrders();
+    }
+
+    initializeAdmin();
   </script>
 
 </body>
