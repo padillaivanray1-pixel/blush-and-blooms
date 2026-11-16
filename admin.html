@@ -308,6 +308,10 @@
 
 </div>
           <div id="orderCount">Loading orders...</div>
+          <div class="sales-summary">
+  <strong>Total Sales:</strong>
+  <span id="totalSales">₱0.00</span>
+</div>
         </div>
       </div>
 
@@ -343,7 +347,7 @@
 
     const ordersContainer = document.getElementById("ordersContainer");
     const orderCount = document.getElementById("orderCount");
-
+const totalSales = document.getElementById("totalSales");
     // ESCAPE CUSTOMER DATA BEFORE DISPLAYING IT
 
     function escapeHTML(value) {
@@ -440,6 +444,11 @@ let allOrders = [];
           throw error;
         }
 allOrders = orders;
+        const salesTotal = orders.reduce((sum, order) => {
+  return sum + Number(order.total || 0);
+}, 0);
+
+totalSales.textContent = money(salesTotal);
         orderCount.textContent =
           orders.length + (orders.length === 1 ? " order received" : " orders received");
 
