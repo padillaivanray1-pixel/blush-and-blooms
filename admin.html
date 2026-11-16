@@ -508,6 +508,21 @@
   <option value="Partially Paid" ${order.payment_status === "Partially Paid" ? "selected" : ""}>Partially Paid</option>
   <option value="Paid" ${order.payment_status === "Paid" ? "selected" : ""}>Paid</option>
 </select>
+<p><strong>Admin Notes:</strong></p>
+
+<textarea
+  class="admin-notes-input"
+  data-order-id="${escapeHTML(order.id)}"
+  placeholder="Write private notes about this order..."
+  rows="3"
+>${escapeHTML(order.admin_notes || "")}</textarea>
+
+<button
+  class="save-admin-notes"
+  data-order-id="${escapeHTML(order.id)}"
+>
+  Save Notes
+</button>
                   <p><strong>Subtotal:</strong> ${money(order.subtotal)}</p>
                   <p><strong>Delivery fee:</strong> ${money(order.delivery_fee)}</p>
                   <p class="total"><strong>Total:</strong> ${money(order.total)}</p>
@@ -565,6 +580,37 @@ ordersContainer.addEventListener("change", async function(event) {
   }
 
   alert("Payment status updated successfully! ♡");
+});
+  // SAVE ADMIN NOTES
+
+ordersContainer.addEventListener("click", async function(event) {
+  if (!event.target.classList.contains("save-admin-notes")) {
+    return;
+  }
+
+  const orderId = event.target.dataset.orderId;
+
+  const notesInput = ordersContainer.querySelector(
+    `.admin-notes-input[data-order-id="${orderId}"]`
+  );
+
+  const newNotes = notesInput.value;
+
+  event.target.disabled = true;
+
+  const { error } = await supabaseClient
+    .from("orders")
+    .update({ admin_notes: newNotes })
+    .eq("id", orderId);
+
+  event.target.disabled = false;
+
+  if (error) {
+    alert("Could not save notes: " + error.message);
+    return;
+  }
+
+  alert("Admin notes saved successfully! ♡");
 });
     // REFRESH ORDERS
 
