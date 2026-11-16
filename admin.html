@@ -309,7 +309,7 @@
 </div>
           <div id="orderCount">Loading orders...</div>
           <div class="sales-summary">
-  <strong>Total Sales:</strong>
+  <strong>Total Collected:</strong>
   <span id="totalSales">₱0.00</span>
 </div>
         </div>
@@ -445,7 +445,14 @@ let allOrders = [];
         }
 allOrders = orders;
         const salesTotal = orders.reduce((sum, order) => {
-  return sum + Number(order.total || 0);
+  if (
+    order.payment_status === "Paid" &&
+    order.status !== "Cancelled"
+  ) {
+    return sum + Number(order.total || 0);
+  }
+
+  return sum;
 }, 0);
 
 totalSales.textContent = money(salesTotal);
