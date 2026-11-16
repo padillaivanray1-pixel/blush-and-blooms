@@ -281,6 +281,32 @@
       <div class="dashboard-heading">
         <div>
           <h2>Customer Orders</h2>
+          <div class="order-filters">
+
+  <input
+    type="text"
+    id="orderSearch"
+    placeholder="Search customer name or phone..."
+  >
+
+  <select id="orderStatusFilter">
+    <option value="All">All Order Statuses</option>
+    <option value="Pending">Pending</option>
+    <option value="Confirmed">Confirmed</option>
+    <option value="Preparing">Preparing</option>
+    <option value="Ready">Ready</option>
+    <option value="Completed">Completed</option>
+    <option value="Cancelled">Cancelled</option>
+  </select>
+
+  <select id="paymentStatusFilter">
+    <option value="All">All Payment Statuses</option>
+    <option value="Unpaid">Unpaid</option>
+    <option value="Partially Paid">Partially Paid</option>
+    <option value="Paid">Paid</option>
+  </select>
+
+</div>
           <div id="orderCount">Loading orders...</div>
         </div>
       </div>
@@ -397,7 +423,7 @@
     });
 
     // LOAD CUSTOMER ORDERS
-
+let allOrders = [];
     async function loadOrders() {
       ordersContainer.innerHTML =
         '<div class="empty-message">Loading orders...</div>';
@@ -413,7 +439,7 @@
         if (error) {
           throw error;
         }
-
+allOrders = orders;
         orderCount.textContent =
           orders.length + (orders.length === 1 ? " order received" : " orders received");
 
@@ -539,7 +565,7 @@
           `;
 
         }).join("");
-
+filterOrders();
       } catch (error) {
         console.error("Order loading error:", error);
 
@@ -554,6 +580,43 @@
         `;
       }
     }
+    // FILTER ORDERS
+
+// FILTER ORDERS
+
+function filterOrders() {
+  const searchValue = document
+    .getElementById("orderSearch")
+    .value.toLowerCase();
+
+  const statusValue = document
+    .getElementById("orderStatusFilter")
+    .value;
+
+  const paymentValue = document
+    .getElementById("paymentStatusFilter")
+    .value;
+
+  const orderCards = ordersContainer.querySelectorAll(".order-card");
+
+  orderCards.forEach(card => {
+    const customerDetails = card.querySelector(".detail-grid .detail");
+    const customerText = customerDetails.textContent.toLowerCase();
+
+    const orderStatus = card.querySelector(".status-select").value;
+    const paymentStatus = card.querySelector(".payment-status-select").value;
+
+    const matchesSearch = customerText.includes(searchValue);
+    const matchesStatus =
+      statusValue === "All" || orderStatus === statusValue;
+
+    const matchesPayment =
+      paymentValue === "All" || paymentStatus === paymentValue;
+
+    card.style.display =
+      matchesSearch && matchesStatus && matchesPayment ? "" : "none";
+  });
+}
 // UPDATE PAYMENT STATUS
 
 ordersContainer.addEventListener("change", async function(event) {
@@ -612,6 +675,13 @@ ordersContainer.addEventListener("click", async function(event) {
 
   alert("Admin notes saved successfully! ♡");
 });
+    // ORDER SEARCH AND FILTER EVENTS
+
+document.getElementById("orderSearch").addEventListener("input", filterOrders);
+
+document.getElementById("orderStatusFilter").addEventListener("change", filterOrders);
+
+document.getElementById("paymentStatusFilter").addEventListener("change", filterOrders);
     // REFRESH ORDERS
 
 // UPDATE ORDER STATUS
