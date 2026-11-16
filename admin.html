@@ -464,9 +464,17 @@
                   </div>
                 </div>
 
-                <span class="status">
-                  ${escapeHTML(order.status || "Pending")}
-                </span>
+               <select
+  class="status-select"
+  data-order-id="${escapeHTML(order.id)}"
+>
+  <option value="Pending" ${order.status === "Pending" ? "selected" : ""}>Pending</option>
+  <option value="Confirmed" ${order.status === "Confirmed" ? "selected" : ""}>Confirmed</option>
+  <option value="Preparing" ${order.status === "Preparing" ? "selected" : ""}>Preparing</option>
+  <option value="Ready" ${order.status === "Ready" ? "selected" : ""}>Ready</option>
+  <option value="Completed" ${order.status === "Completed" ? "selected" : ""}>Completed</option>
+  <option value="Cancelled" ${order.status === "Cancelled" ? "selected" : ""}>Cancelled</option>
+</select>
               </div>
 
               <div class="detail-grid">
@@ -524,6 +532,34 @@
     }
 
     // REFRESH ORDERS
+
+// UPDATE ORDER STATUS
+
+ordersContainer.addEventListener("change", async function(event) {
+  if (!event.target.classList.contains("status-select")) {
+    return;
+  }
+
+  const orderId = event.target.dataset.orderId;
+  const newStatus = event.target.value;
+
+  event.target.disabled = true;
+
+  const { error } = await supabaseClient
+    .from("orders")
+    .update({ status: newStatus })
+    .eq("id", orderId);
+
+  event.target.disabled = false;
+
+  if (error) {
+    alert("Could not update order status: " + error.message);
+    await loadOrders();
+    return;
+  }
+
+  alert("Order status updated successfully! ♡");
+});
 
     document.getElementById("refreshButton").addEventListener("click", async function() {
       this.disabled = true;
