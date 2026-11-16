@@ -1555,3 +1555,118 @@ function updateModalPrice() {
 
   document.getElementById("modalPrice").textContent = priceLabel(price);
 }
+
+function closeProduct() {
+  document.getElementById("productModal").style.display = "none";
+  selectedProduct = null;
+}
+
+function changeModalQty(change) {
+  const quantityInput = document.getElementById("modalQty");
+
+  if (!quantityInput) return;
+
+  const currentQuantity = parseInt(quantityInput.value, 10) || 1;
+  quantityInput.value = Math.max(1, currentQuantity + change);
+}
+
+function addFromModal() {
+  if (!selectedProduct) return;
+
+  const variations = {};
+
+  document.querySelectorAll("#productFields select").forEach(select => {
+    variations[select.dataset.variation] = select.value;
+  });
+
+  const price = calculateProductPrice(selectedProduct, variations);
+
+  if (price === null || price === undefined) {
+    alert("Please select your product options.");
+    return;
+  }
+
+  const quantity = Math.max(
+    1,
+    parseInt(document.getElementById("modalQty").value, 10) || 1
+  );
+
+  cart.push({
+    id: selectedProduct.id,
+    name: selectedProduct.name,
+    image: selectedProduct.image,
+    variations,
+    price,
+    quantity
+  });
+
+  saveCart();
+  closeProduct();
+
+  alert("Added to cart! ♡");
+}
+
+function updateCart() {
+  const cartItems = document.getElementById("cartItems");
+  const cartCount = document.getElementById("cartCount");
+  const cartSubtotal = document.getElementById("cartSubtotal");
+
+  if (!cartItems) return;
+
+  cartCount.textContent = cart.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+
+  if (cart.length === 0) {
+    cartItems.innerHTML = '<p class="empty">Your cart is empty. ♡</p>';
+    cartSubtotal.textContent = money(0);
+    return;
+  }
+
+  cartItems.innerHTML = cart.map((item, index) => `
+    <div class="cart-item">
+      <img src="${item.image}" alt="${item.name}">
+      <div>
+        <h4>${item.name}</h4>
+        <p>${Object.entries(item.variations || {})
+          .map(([key, value]) => `${key}: ${value}`)
+          .join(" · ")}</p>
+        <p>${money(item.price)} × ${item.quantity}</p>
+        <button onclick="removeCartItem(${index})">Remove</button>
+      </div>
+    </div>
+  `).join("");
+
+  const subtotal = cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
+  cartSubtotal.textContent = money(subtotal);
+}
+
+function removeCartItem(index) {
+  cart.splice(index, 1);
+  saveCart();
+}
+
+function toggleCart() {
+  const cartDrawer = document.getElementById("cartDrawer");
+
+  if (!cartDrawer) return;
+
+  cartDrawer.classList.toggle("open");
+}
+
+function getCartSubtotal() {
+  return cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+}
+
+function clearCart() {
+  cart = [];
+  saveCart();
+}
