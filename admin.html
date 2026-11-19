@@ -588,7 +588,7 @@ editOrderFormContainer.innerHTML = `
   <label>Delivery Fee (₱)</label>
  <input type="number" id="editDeliveryFee" min="0" step="0.01" value="${order.delivery_fee || ""}">
   <label>Total (₱)</label>
-  <input type="number" id="editTotal" min="0" step="0.01" value="${order.total || ""}"
+ <input type="number" id="editTotal" min="0" step="0.01" value="${order.total || ""}">
 `;
 
   editOrderModal.style.display = "flex";
@@ -630,9 +630,17 @@ saveOrderChanges.addEventListener("click", async function() {
     return;
   }
 
-  if (
-  if (
+ if (
   !Number.isFinite(updatedOrder.subtotal) ||
+  (updatedOrder.delivery_fee !== null && !Number.isFinite(updatedOrder.delivery_fee)) ||
+  (updatedOrder.total !== null && !Number.isFinite(updatedOrder.total)) ||
+  updatedOrder.subtotal < 0 ||
+  (updatedOrder.delivery_fee !== null && updatedOrder.delivery_fee < 0) ||
+  (updatedOrder.total !== null && updatedOrder.total < 0)
+) {
+  alert("Please enter valid amounts. Amounts cannot be negative.");
+  return;
+}
   (updatedOrder.delivery_fee !== null && !Number.isFinite(updatedOrder.delivery_fee)) ||
   (updatedOrder.total !== null && !Number.isFinite(updatedOrder.total)) ||
     updatedOrder.subtotal < 0 ||
