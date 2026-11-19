@@ -641,15 +641,6 @@ saveOrderChanges.addEventListener("click", async function() {
   alert("Please enter valid amounts. Amounts cannot be negative.");
   return;
 }
-  (updatedOrder.delivery_fee !== null && !Number.isFinite(updatedOrder.delivery_fee)) ||
-  (updatedOrder.total !== null && !Number.isFinite(updatedOrder.total)) ||
-    updatedOrder.subtotal < 0 ||
-    updatedOrder.delivery_fee < 0 ||
-    updatedOrder.total < 0
-  ) {
-    alert("Please enter valid prices.");
-    return;
-  }
 
   saveOrderChanges.disabled = true;
 
