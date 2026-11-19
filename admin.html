@@ -375,8 +375,9 @@
     <h1>Blush & Blooms ♡</h1>
 
     <div class="header-actions" id="headerActions" hidden>
-      <button type="button" class="primary-btn" id="addProductButton">
-  IMPORT 14 EXISTING PRODUCTS
+<button type="button" class="primary-btn" id="refreshButton">
+  REFRESH ORDERS
+</button>
 </button>
 
       <button class="logout-btn" id="logoutButton">
@@ -745,10 +746,10 @@ saveOrderChanges.addEventListener("click", async function() {
 
   alert("Order details updated successfully! ♡");
 
-  editOrderModal.style.display = "none";
-  currentEditingOrderId = null;
+editOrderModal.style.display = "none";
+currentEditingOrderId = null;
 
-  await loadOrders();
+await loadOrders();
 });
 // CLOSE EDIT WINDOW
 
