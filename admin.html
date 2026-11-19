@@ -375,9 +375,9 @@
     <h1>Blush & Blooms ♡</h1>
 
     <div class="header-actions" id="headerActions" hidden>
-      <button class="primary-btn" id="refreshButton">
-        REFRESH ORDERS
-      </button>
+      <button class="primary-btn" id="addProductButton">
+  IMPORT 14 EXISTING PRODUCTS
+</button>
 
       <button class="logout-btn" id="logoutButton">
         LOG OUT
@@ -754,6 +754,11 @@ saveOrderChanges.addEventListener("click", async function() {
 
 closeEditOrder.addEventListener("click", function() {
   editOrderModal.style.display = "none";
+});
+    // IMPORT EXISTING PRODUCTS
+
+addProductButton.addEventListener("click", async function() {
+  alert("Import function is being prepared. Please wait for the next step.");
 });
     // LOAD PRODUCTS
 
