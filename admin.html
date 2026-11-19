@@ -514,6 +514,10 @@
     const message = document.getElementById("message");
 
     const ordersContainer = document.getElementById("ordersContainer");
+    const productsContainer = document.getElementById("productsContainer");
+const addProductButton = document.getElementById("addProductButton");
+
+let allProducts = [];
     const orderCount = document.getElementById("orderCount");
 const totalSales = document.getElementById("totalSales");
     // ESCAPE CUSTOMER DATA BEFORE DISPLAYING IT
@@ -582,8 +586,9 @@ const totalSales = document.getElementById("totalSales");
         message.textContent = "Login successful!";
         message.style.color = "green";
 
-        showDashboard();
-        await loadOrders();
+      showDashboard();
+await loadOrders();
+await loadProducts();
 
       } catch (error) {
         message.textContent = error.message;
@@ -750,6 +755,56 @@ saveOrderChanges.addEventListener("click", async function() {
 closeEditOrder.addEventListener("click", function() {
   editOrderModal.style.display = "none";
 });
+    // LOAD PRODUCTS
+
+async function loadProducts() {
+  productsContainer.innerHTML =
+    '<div class="empty-message">Loading products...</div>';
+
+  try {
+    const { data: products, error } = await supabaseClient
+      .from("products")
+      .select("*")
+      .order("id", { ascending: true });
+
+    if (error) {
+      throw error;
+    }
+
+    allProducts = products;
+
+    if (products.length === 0) {
+      productsContainer.innerHTML =
+        '<div class="empty-message">No products added yet.</div>';
+      return;
+    }
+
+    productsContainer.innerHTML = products.map(product => `
+      <div class="product-card">
+        <img
+          src="${escapeHTML(product.image || "")}"
+          alt="${escapeHTML(product.name)}"
+        >
+
+        <div>
+          <h3>${escapeHTML(product.name)}</h3>
+          <p>Category: ${escapeHTML(product.category || "Uncategorized")}</p>
+          <p>Price: ${money(product.price)}</p>
+          <p>Status: ${product.is_active ? "Active" : "Inactive"}</p>
+        </div>
+      </div>
+    `).join("");
+
+  } catch (error) {
+    console.error("Product loading error:", error);
+
+    productsContainer.innerHTML = `
+      <div class="empty-message">
+        Could not load products: ${escapeHTML(error.message)}
+      </div>
+    `;
+  }
+}
     async function loadOrders() {
       ordersContainer.innerHTML =
         '<div class="empty-message">Loading orders...</div>';
@@ -1104,8 +1159,9 @@ ordersContainer.addEventListener("change", async function(event) {
         return;
       }
 
-      showDashboard();
-      await loadOrders();
+     showDashboard();
+await loadOrders();
+await loadProducts();
     }
 
     initializeAdmin();
