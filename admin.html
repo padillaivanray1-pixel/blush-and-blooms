@@ -132,7 +132,72 @@
       box-shadow: 0 3px 12px rgba(0,0,0,0.04);
       border: 1px solid #f4dce6;
     }
+/* PRODUCT MANAGEMENT */
 
+.product-management {
+  background: white;
+  padding: 22px;
+  border-radius: 14px;
+  margin-bottom: 30px;
+  border: 1px solid #f4dce6;
+}
+
+.product-management h2 {
+  color: #c45b83;
+  margin: 0;
+}
+
+.product-card {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 15px;
+  padding: 15px;
+  border: 1px solid #f4dce6;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  background: #fff9fb;
+}
+
+.product-card img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 9px;
+}
+
+.product-card h3 {
+  margin: 0 0 8px;
+  color: #b9537c;
+}
+
+.product-card p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.product-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.product-actions button {
+  padding: 9px 12px;
+  background: #f5d5e2;
+  color: #9e456d;
+}
+
+@media (max-width: 500px) {
+  .product-card {
+    grid-template-columns: 1fr;
+  }
+
+  .product-card img {
+    width: 100%;
+    height: 180px;
+  }
+}
     .order-top {
       display: flex;
       justify-content: space-between;
@@ -392,8 +457,25 @@
         </div>
       </div>
 
-     <div id="ordersContainer"></div>
+   <!-- PRODUCT MANAGEMENT -->
 
+<section class="product-management">
+  <div class="dashboard-heading">
+    <h2>Product Management</h2>
+
+    <button class="primary-btn" id="addProductButton">
+      + ADD PRODUCT
+    </button>
+  </div>
+
+  <div id="productsContainer">
+    <div class="empty-message">Loading products...</div>
+  </div>
+</section>
+
+<!-- CUSTOMER ORDERS -->
+
+<div id="ordersContainer"></div>
 <div id="editOrderModal" class="edit-modal" style="display: none;">
   <div class="edit-modal-content">
     <h2>Edit Order Details</h2>
