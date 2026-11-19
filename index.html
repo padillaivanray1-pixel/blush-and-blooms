@@ -1914,7 +1914,29 @@ if (checkoutForm) {
       submitButton.textContent = "SUBMITTING ORDER...";
 
       const formData = new FormData(checkoutForm);
+const paymentProofFile = formData.get("paymentProof");
 
+let paymentProofPath = null;
+
+if (paymentProofFile && paymentProofFile.size > 0) {
+  if (paymentProofFile.size > 5 * 1024 * 1024) {
+    throw new Error("Payment proof must not exceed 5 MB.");
+  }
+
+  const fileExtension = paymentProofFile.name.split(".").pop();
+  const filePath = `${crypto.randomUUID()}.${fileExtension}`;
+
+  const { error: uploadError } = await supabaseClient
+    .storage
+    .from("payment-proofs")
+    .upload(filePath, paymentProofFile);
+
+  if (uploadError) {
+    throw uploadError;
+  }
+
+  paymentProofPath = filePath;
+}
       const orderData = {
         customer_name: formData.get("name").trim(),
         phone: formData.get("phone").trim(),
@@ -1942,7 +1964,8 @@ if (checkoutForm) {
           formData.get("instructions") || "",
 
         payment_method: formData.get("payment"),
-
+        payment_proof_path: paymentProofPath,
+        
         status: "Pending",
         payment_status: "Unpaid",
         order_type: "Delivery"
