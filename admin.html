@@ -1261,7 +1261,13 @@ addProductButton.addEventListener("click", async function() {
     addProductButton.disabled = false;
   }
 });
+  // CLOSE ADD PRODUCT MODAL
+
+document.getElementById("closeProductModal").addEventListener("click", function() {
+  document.getElementById("productModal").style.display = "none";
+});
   // OPEN ADD PRODUCT MODAL
+    
 
 newProductButton.addEventListener("click", function() {
   document.getElementById("productModalTitle").textContent = "Add New Product";
