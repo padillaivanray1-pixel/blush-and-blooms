@@ -463,7 +463,11 @@
   <div class="dashboard-heading">
     <h2>Product Management</h2>
 
-   <button type="button" class="primary-btn" id="addProductButton">
+<button type="button" class="primary-btn" id="newProductButton">
+  + ADD NEW PRODUCT
+</button>
+
+<button type="button" class="primary-btn" id="addProductButton">
   IMPORT 14 EXISTING PRODUCTS
 </button>
   </div>
@@ -516,7 +520,8 @@
     const ordersContainer = document.getElementById("ordersContainer");
     const productsContainer = document.getElementById("productsContainer");
 const addProductButton = document.getElementById("addProductButton");
-
+const newProductButton = document.getElementById("newProductButton");
+    
 let allProducts = [];
     const orderCount = document.getElementById("orderCount");
 const totalSales = document.getElementById("totalSales");
