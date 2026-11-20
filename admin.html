@@ -1318,6 +1318,7 @@ document.getElementById("saveProductButton").addEventListener("click", async fun
   const price = document.getElementById("productPrice").value;
   const description = document.getElementById("productDescription").value.trim();
   const imageFile = document.getElementById("productImage").files[0];
+  alert("Photo detected: " + (imageFile ? imageFile.name : "NO PHOTO DETECTED"));
 
   if (!name || !category) {
     alert("Please enter the product name and category.");
