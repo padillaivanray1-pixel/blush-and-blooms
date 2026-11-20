@@ -567,7 +567,12 @@
     <textarea id="productDescription" placeholder="Enter product description"></textarea>
 
     <label>Product Photo</label>
-    <input type="file" id="productImage" accept="image/png, image/jpeg, image/webp">
+   <input
+  type="file"
+  id="productImage"
+  accept="image/png, image/jpeg, image/webp"
+  onchange="alert('File selected: ' + (this.files.length ? this.files[0].name : 'No file'))"
+>
 
     <div id="productImagePreview"></div>
 
