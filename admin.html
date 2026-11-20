@@ -1261,6 +1261,21 @@ addProductButton.addEventListener("click", async function() {
     addProductButton.disabled = false;
   }
 });
+  // OPEN ADD PRODUCT MODAL
+
+newProductButton.addEventListener("click", function() {
+  document.getElementById("productModalTitle").textContent = "Add New Product";
+
+  document.getElementById("productName").value = "";
+  document.getElementById("productCategory").value = "";
+  document.getElementById("productPrice").value = "";
+  document.getElementById("productDescription").value = "";
+  document.getElementById("productImage").value = "";
+
+  document.getElementById("productImagePreview").innerHTML = "";
+
+  document.getElementById("productModal").style.display = "flex";
+});
 
 // LOAD PRODUCTS
 
