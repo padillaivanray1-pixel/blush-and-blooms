@@ -758,8 +758,404 @@ closeEditOrder.addEventListener("click", function() {
     // IMPORT EXISTING PRODUCTS
     
 const existingProducts = [
-      
-    // LOAD PRODUCTS
+       {
+    id: 1,
+    name: "Vintage Buttercream Cake",
+    category: "Cakes",
+    price: null,
+    description: "A dreamy buttercream cake for your sweetest celebrations.",
+    image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=700&q=80",
+    options: {
+      Size: ["4 inches", "6 inches", "8 inches", "10 inches"],
+      Flavor: ["Chocolate", "Vanilla", "Red Velvet", "Mocha", "Ube"],
+      "Frosting color": ["Blush pink", "Baby blue", "Lavender", "White", "Custom"],
+      Design: ["Vintage", "Minimalist", "Custom"]
+    },
+    pricing: {
+      mode: "option",
+      option: "Size",
+      values: {
+        "4 inches": 650,
+        "6 inches": 1100,
+        "8 inches": 1600,
+        "10 inches": 2200
+      }
+    }
+  },
+
+  {
+    id: 2,
+    name: "Vintage Heart Cake",
+    category: "Cakes",
+    price: null,
+    description: "Romantic heart-shaped cakes with vintage piping details.",
+    image: "https://images.unsplash.com/photo-1562777717-dc6984f65a63?auto=format&fit=crop&w=700&q=80",
+    options: {
+      Size: ["4 inches", "6 inches", "8 inches"],
+      Flavor: ["Chocolate", "Vanilla", "Red Velvet", "Ube"],
+      "Frosting color": ["Pink", "Blue", "Lavender", "White", "Custom"]
+    },
+    pricing: {
+      mode: "option",
+      option: "Size",
+      values: {
+        "4 inches": 750,
+        "6 inches": 1250,
+        "8 inches": 1850
+      }
+    }
+  },
+
+  {
+    id: 3,
+    name: "Custom Celebration Cake",
+    category: "Cakes",
+    price: null,
+    description: "A personalized centerpiece for your most special day.",
+    image: "https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?auto=format&fit=crop&w=700&q=80",
+    options: {
+      Size: ["6 inches", "8 inches", "10 inches"],
+      Flavor: ["Chocolate", "Vanilla", "Red Velvet", "Mocha", "Ube"],
+      Design: ["Minimalist", "Vintage", "Theme-based", "Custom"],
+      "Frosting color": ["Pink", "Blue", "Lavender", "White", "Custom"]
+    },
+    pricing: {
+      mode: "option",
+      option: "Size",
+      values: {
+        "6 inches": 1300,
+        "8 inches": 1900,
+        "10 inches": 2600
+      }
+    }
+  },
+
+  {
+    id: 4,
+    name: "Classic Flower Cupcakes",
+    category: "Cupcakes",
+    price: null,
+    description: "Soft, fluffy cupcakes decorated with beautiful buttercream flowers.",
+    image: "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=700&q=80",
+    options: {
+      Flavor: ["Chocolate", "Vanilla", "Red Velvet", "Ube"],
+      Quantity: ["7 pieces", "14 pieces", "21 pieces", "28 pieces", "35 pieces", "42 pieces", "49 pieces", "56 pieces", "63 pieces", "70 pieces", "77 pieces", "84 pieces", "91 pieces", "98 pieces"],
+      "Flower color": ["Pink", "Blue", "Lavender", "White", "Mixed colors"]
+    },
+    pricing: {
+      mode: "option",
+      option: "Quantity",
+      values: {
+        "7 pieces": 360,
+        "14 pieces": 700,
+        "21 pieces": 1050,
+        "28 pieces": 1400,
+        "35 pieces": 1750,
+        "42 pieces": 2100,
+        "49 pieces": 2450,
+        "56 pieces": 2800,
+        "63 pieces": 3150,
+        "70 pieces": 3500,
+        "77 pieces": 3850,
+        "84 pieces": 4200,
+        "91 pieces": 4550,
+        "98 pieces": 4900
+      }
+    }
+  },
+
+  {
+    id: 5,
+    name: "Large Flower Cupcakes",
+    category: "Cupcakes",
+    price: null,
+    description: "Generously sized cupcakes topped with beautiful buttercream flowers.",
+    image: "https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=700&q=80",
+    options: {
+      Flavor: ["Chocolate", "Vanilla", "Red Velvet", "Ube"],
+      Quantity: ["7 pieces", "14 pieces", "21 pieces", "28 pieces", "35 pieces", "42 pieces", "49 pieces", "56 pieces", "63 pieces", "70 pieces", "77 pieces", "84 pieces", "91 pieces", "98 pieces"],
+      "Flower color": ["Pink", "Blue", "Lavender", "White", "Mixed colors"]
+    },
+    pricing: {
+      mode: "option",
+      option: "Quantity",
+      values: {
+        "7 pieces": 630,
+        "14 pieces": 1260,
+        "21 pieces": 1890,
+        "28 pieces": 2520,
+        "35 pieces": 3150,
+        "42 pieces": 3780,
+        "49 pieces": 4410,
+        "56 pieces": 5040,
+        "63 pieces": 5670,
+        "70 pieces": 6300,
+        "77 pieces": 6930,
+        "84 pieces": 7560,
+        "91 pieces": 8190,
+        "98 pieces": 8820
+      }
+    }
+  },
+
+  {
+    id: 6,
+    name: "Flower Cupcake Bouquet",
+    category: "Cupcakes",
+    price: null,
+    description: "A beautiful bouquet made entirely of individual flower-decorated cupcakes.",
+    image: "https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=700&q=80",
+    options: {
+      Package: ["Regular - 7 cupcakes", "Regular - 12 cupcakes", "Regular - 19 cupcakes", "Large - 7 cupcakes", "Large - 12 cupcakes", "Large - 19 cupcakes"],
+      Flavor: ["Chocolate", "Vanilla", "Mixed flavors"],
+      "Wrapping color": ["Pink", "Blue", "Lavender", "White"],
+      "Greeting card": ["Yes", "No"]
+    },
+    pricing: {
+      mode: "option",
+      option: "Package",
+      values: {
+        "Regular - 7 cupcakes": 650,
+        "Regular - 12 cupcakes": 1050,
+        "Regular - 19 cupcakes": 1600,
+        "Large - 7 cupcakes": 850,
+        "Large - 12 cupcakes": 1400,
+        "Large - 19 cupcakes": 2100
+      }
+    }
+  },
+
+  {
+    id: 7,
+    name: "Premium Donuts",
+    category: "Donuts",
+    price: null,
+    description: "Delightful donuts with regular and premium flavors. Mix your favorites!",
+    image: "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=700&q=80",
+    options: {
+      Flavor: ["Chocolate", "Matcha", "Strawberry", "Cookies & Cream", "Yema", "Ube", "Biscoff", "Nutella"],
+      Quantity: ["1 piece", "6 pieces", "12 pieces"]
+    },
+    pricing: {
+      mode: "unit",
+      unitOption: "Flavor",
+      quantityOption: "Quantity",
+      unitPrices: {
+        Chocolate: 30,
+        Matcha: 30,
+        Strawberry: 30,
+        "Cookies & Cream": 30,
+        Yema: 30,
+        Ube: 30,
+        Biscoff: 75,
+        Nutella: 75
+      }
+    }
+  },
+
+  {
+    id: 8,
+    name: "Messymada",
+    category: "Breads",
+    price: null,
+    description: "Our delicious Messymada with your choice of regular or premium flavors.",
+    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=700&q=80",
+    options: {
+      Flavor: ["Salted Egg", "Yema", "Ube", "Chocolate", "Matcha", "Strawberry", "Biscoff", "Nutella"],
+      Quantity: ["1 piece", "3 pieces", "6 pieces", "12 pieces"]
+    },
+    pricing: {
+      mode: "unit",
+      unitOption: "Flavor",
+      quantityOption: "Quantity",
+      unitPrices: {
+        "Salted Egg": 30,
+        Yema: 30,
+        Ube: 30,
+        Chocolate: 30,
+        Matcha: 30,
+        Strawberry: 30,
+        Biscoff: 75,
+        Nutella: 75
+      }
+    }
+  },
+
+  {
+    id: 9,
+    name: "Giant Spanish Bread",
+    category: "Breads",
+    price: 25,
+    description: "A generously sized Filipino Spanish bread. ₱25 each.",
+    image: "https://images.unsplash.com/photo-1608198093002-ad4e005484c2?auto=format&fit=crop&w=700&q=80",
+    options: {
+      Quantity: ["1 piece", "2 pieces", "3 pieces", "6 pieces", "12 pieces"]
+    },
+    pricing: {
+      mode: "unit",
+      quantityOption: "Quantity",
+      unitPrice: 25
+    }
+  },
+
+  {
+    id: 10,
+    name: "Premium Cookies",
+    category: "Desserts",
+    price: null,
+    description: "Delicious premium cookies in Biscoff, Matcha, and Red Velvet flavors.",
+    image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=700&q=80",
+    options: {
+      Flavor: ["Biscoff", "Matcha", "Red Velvet"],
+      Quantity: ["1 piece", "6 pieces", "12 pieces"]
+    },
+    pricing: {
+      mode: "unit",
+      quantityOption: "Quantity",
+      unitPrice: 45
+    }
+  },
+
+  {
+    id: 11,
+    name: "Fudgy Brownies",
+    category: "Desserts",
+    price: null,
+    description: "Rich and chocolatey brownies for dessert lovers.",
+    image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=700&q=80",
+    options: {
+      Quantity: ["1 piece", "4 pieces", "6 pieces", "12 pieces"]
+    },
+    pricing: {
+      mode: "option",
+      option: "Quantity",
+      values: {
+        "1 piece": 50,
+        "4 pieces": 190,
+        "6 pieces": 280,
+        "12 pieces": 540
+      }
+    }
+  },
+
+  {
+    id: 12,
+    name: "Egg Tart",
+    category: "Desserts",
+    price: null,
+    description: "Delicious egg tarts available in small and big sizes.",
+    image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=700&q=80",
+    options: {
+      Size: ["Small", "Big"],
+      Quantity: ["1 piece", "4 pieces", "6 pieces", "12 pieces"]
+    },
+    pricing: {
+      mode: "unit",
+      unitOption: "Size",
+      quantityOption: "Quantity",
+      unitPrices: {
+        Small: 15,
+        Big: 35
+      }
+    }
+  },
+
+  {
+    id: 13,
+    name: "Chocolate Lava Crinkles",
+    category: "Desserts",
+    price: null,
+    description: "Soft chocolate crinkles with a delicious gooey lava filling.",
+    image: "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?auto=format&fit=crop&w=700&q=80",
+    options: {
+      Size: ["Small", "Big"],
+      Quantity: ["1 piece", "6 pieces", "12 pieces"]
+    },
+    pricing: {
+      mode: "unit",
+      unitOption: "Size",
+      quantityOption: "Quantity",
+      unitPrices: {
+        Small: 15,
+        Big: 40
+      }
+    }
+  },
+
+  {
+    id: 14,
+    name: "Number Flower Cupcake",
+    category: "Cupcakes",
+    price: null,
+    description: "Individual flower-decorated cupcakes arranged into beautiful number shapes.",
+    image: "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=700&q=80",
+    options: {
+      Design: ["Single number", "Double number"],
+      Flavor: ["Chocolate", "Vanilla", "Red Velvet", "Ube"],
+      "Flower color": ["Pink", "Blue", "Lavender", "White", "Mixed colors"]
+    },
+    pricing: {
+      mode: "option",
+      option: "Design",
+      values: {
+        "Single number": 1200,
+      "Double number": 2200
+      }
+    }
+];
+
+// IMPORT PRODUCTS INTO SUPABASE
+
+addProductButton.addEventListener("click", async function() {
+
+  if (allProducts.length > 0) {
+    alert("Products already exist. Import cancelled.");
+    return;
+  }
+
+  const { data: existingRows, error: checkError } = await supabaseClient
+    .from("products")
+    .select("id")
+    .limit(1);
+
+  if (checkError) {
+    alert("Could not check products: " + checkError.message);
+    return;
+  }
+
+  if (existingRows.length > 0) {
+    alert("Products already exist. Import cancelled.");
+    await loadProducts();
+    return;
+  }
+
+  if (!confirm("Import all 14 existing products into Supabase?")) {
+    return;
+  }
+
+  addProductButton.disabled = true;
+
+  try {
+    const { error } = await supabaseClient
+      .from("products")
+      .insert(existingProducts);
+
+    if (error) {
+      throw error;
+    }
+
+    alert("14 products imported successfully! ♡");
+    await loadProducts();
+
+  } catch (error) {
+    alert("Import failed: " + error.message);
+
+  } finally {
+    addProductButton.disabled = false;
+  }
+});
+
+// LOAD PRODUCTS
 
 async function loadProducts() {
   productsContainer.innerHTML =
