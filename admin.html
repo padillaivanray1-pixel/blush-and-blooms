@@ -1282,7 +1282,56 @@ newProductButton.addEventListener("click", function() {
 
   document.getElementById("productModal").style.display = "flex";
 });
+// SAVE NEW PRODUCT
 
+document.getElementById("saveProductButton").addEventListener("click", async function() {
+
+  const name = document.getElementById("productName").value.trim();
+  const category = document.getElementById("productCategory").value.trim();
+  const price = document.getElementById("productPrice").value;
+  const description = document.getElementById("productDescription").value.trim();
+
+  if (!name || !category) {
+    alert("Please enter the product name and category.");
+    return;
+  }
+
+  const saveButton = document.getElementById("saveProductButton");
+  saveButton.disabled = true;
+
+  try {
+    const { error } = await supabaseClient
+      .from("products")
+      .insert([{
+        name: name,
+        category: category,
+        price: price ? Number(price) : null,
+        description: description,
+        image: null,
+        options: {},
+        pricing: {},
+        is_active: true
+      }]);
+
+    if (error) {
+      throw error;
+    }
+
+    alert("Product added successfully! ♡");
+
+    document.getElementById("productModal").style.display = "none";
+
+    await loadProducts();
+
+  } catch (error) {
+    alert("Could not save product: " + error.message);
+
+  } finally {
+    saveButton.disabled = false;
+  }
+
+});
+    
 // LOAD PRODUCTS
 
 async function loadProducts() {
