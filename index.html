@@ -1682,6 +1682,8 @@ function changeModalQty(change) {
   const current = parseInt(display.textContent, 10) || 1;
 
   display.textContent = Math.max(1, current + change);
+
+  updateModalPrice();
 }
 
 /* ==========================================
