@@ -562,6 +562,11 @@
 
     <label>Price</label>
     <input type="number" id="productPrice" placeholder="Enter price">
+    <label>Product Status</label>
+<select id="productStatus">
+  <option value="true">Active</option>
+  <option value="false">Inactive</option>
+</select>
 
     <label>Description</label>
     <textarea id="productDescription" placeholder="Enter product description"></textarea>
@@ -629,6 +634,7 @@ const addProductButton = document.getElementById("addProductButton");
 const newProductButton = document.getElementById("newProductButton");
     
 let allProducts = [];
+    let currentEditingProductId = null;
     const orderCount = document.getElementById("orderCount");
 const totalSales = document.getElementById("totalSales");
     // ESCAPE CUSTOMER DATA BEFORE DISPLAYING IT
@@ -1275,6 +1281,8 @@ document.getElementById("closeProductModal").addEventListener("click", function(
     
 
 newProductButton.addEventListener("click", function() {
+    currentEditingProductId = null;
+  
   document.getElementById("productModalTitle").textContent = "Add New Product";
 
   document.getElementById("productName").value = "";
@@ -1314,7 +1322,8 @@ document.getElementById("productImage").addEventListener("change", function() {
   const imageUrl = URL.createObjectURL(file);
   preview.innerHTML = `<img src="${imageUrl}" alt="Product photo preview">`;
 });
-// SAVE NEW PRODUCT WITH PHOTO UPLOAD
+// LOAD PRODUCTS
+
 
 document.getElementById("saveProductButton").addEventListener("click", async function() {
 
@@ -1323,7 +1332,6 @@ document.getElementById("saveProductButton").addEventListener("click", async fun
   const price = document.getElementById("productPrice").value;
   const description = document.getElementById("productDescription").value.trim();
   const imageFile = document.getElementById("productImage").files[0];
-  alert("Photo detected: " + (imageFile ? imageFile.name : "NO PHOTO DETECTED"));
 
   if (!name || !category) {
     alert("Please enter the product name and category.");
@@ -1343,11 +1351,19 @@ document.getElementById("saveProductButton").addEventListener("click", async fun
   const saveButton = document.getElementById("saveProductButton");
   saveButton.disabled = true;
 
-  let imageUrl = null;
-
   try {
 
-    // UPLOAD PHOTO IF ONE WAS SELECTED
+    const existingProduct = currentEditingProductId !== null
+      ? allProducts.find(item => String(item.id) === String(currentEditingProductId))
+      : null;
+
+    if (currentEditingProductId !== null && !existingProduct) {
+      throw new Error("Could not find the product being edited.");
+    }
+
+    let imageUrl = existingProduct?.image || null;
+
+    // UPLOAD NEW PHOTO IF SELECTED
 
     if (imageFile) {
       const fileExtension = imageFile.name.split(".").pop().toLowerCase();
@@ -1370,35 +1386,62 @@ document.getElementById("saveProductButton").addEventListener("click", async fun
       imageUrl = publicUrlData.publicUrl;
     }
 
-    // SAVE PRODUCT DETAILS
+const productData = {
+  name: name,
+  category: category,
+  price: price === "" ? null : Number(price),
+  description: description,
+  image: imageUrl,
+  is_active: document.getElementById("productStatus").value === "true"
+};
 
-    const { error } = await supabaseClient
-      .from("products")
-      .insert([{
-        name: name,
-        category: category,
-        price: price ? Number(price) : null,
-        description: description,
-        image: imageUrl,
-        options: {},
-        pricing: {},
-        is_active: true
-      }]);
+    let error;
+
+    // UPDATE EXISTING PRODUCT
+
+    if (currentEditingProductId !== null) {
+
+      productData.options = existingProduct.options || {};
+      productData.pricing = existingProduct.pricing || {};
+
+      ({ error } = await supabaseClient
+        .from("products")
+        .update(productData)
+        .eq("id", currentEditingProductId));
+
+    } else {
+
+      // ADD NEW PRODUCT
+
+      productData.options = {};
+      productData.pricing = {};
+
+      ({ error } = await supabaseClient
+        .from("products")
+        .insert([productData]));
+    }
 
     if (error) {
       throw error;
     }
 
-    alert("Product added successfully! ♡");
+    alert(
+      currentEditingProductId !== null
+        ? "Product updated successfully! ♡"
+        : "Product added successfully! ♡"
+    );
 
     document.getElementById("productModal").style.display = "none";
 
     document.getElementById("productName").value = "";
     document.getElementById("productCategory").value = "";
     document.getElementById("productPrice").value = "";
+    document.getElementById("productStatus").value = "true";
     document.getElementById("productDescription").value = "";
     document.getElementById("productImage").value = "";
     document.getElementById("productImagePreview").innerHTML = "";
+
+    currentEditingProductId = null;
 
     await loadProducts();
 
@@ -1410,7 +1453,7 @@ document.getElementById("saveProductButton").addEventListener("click", async fun
   }
 
 });
- 
+
 // LOAD PRODUCTS
 
 async function loadProducts() {
@@ -1447,6 +1490,15 @@ async function loadProducts() {
           <p>Category: ${escapeHTML(product.category || "Uncategorized")}</p>
           <p>Price: ${money(product.price)}</p>
           <p>Status: ${product.is_active ? "Active" : "Inactive"}</p>
+          <div class="product-actions">
+  <button
+    type="button"
+    class="edit-product-btn"
+    data-product-id="${escapeHTML(product.id)}"
+  >
+    ✎ EDIT PRODUCT
+  </button>
+</div>
         </div>
       </div>
     `).join("");
@@ -1461,6 +1513,45 @@ async function loadProducts() {
     `;
   }
 }
+
+// OPEN EDIT PRODUCT FORM
+
+productsContainer.addEventListener("click", function(event) {
+  const editButton = event.target.closest(".edit-product-btn");
+
+  if (!editButton) return;
+
+  const productId = editButton.dataset.productId;
+
+  const product = allProducts.find(
+    item => String(item.id) === String(productId)
+  );
+
+  if (!product) {
+    alert("Product not found.");
+    return;
+  }
+
+  currentEditingProductId = product.id;
+
+  document.getElementById("productModalTitle").textContent = "Edit Product";
+
+  document.getElementById("productName").value = product.name || "";
+  document.getElementById("productCategory").value = product.category || "";
+  document.getElementById("productPrice").value = product.price ?? "";
+  document.getElementById("productDescription").value = product.description || "";
+  document.getElementById("productStatus").value =
+  product.is_active === false ? "false" : "true";
+  document.getElementById("productImage").value = "";
+
+  document.getElementById("productImagePreview").innerHTML =
+    product.image
+      ? `<img src="${escapeHTML(product.image)}" alt="Current product photo">`
+      : "";
+
+  document.getElementById("productModal").style.display = "flex";
+});
+
     async function loadOrders() {
       ordersContainer.innerHTML =
         '<div class="empty-message">Loading orders...</div>';
