@@ -1490,13 +1490,22 @@ async function loadProducts() {
           <p>Category: ${escapeHTML(product.category || "Uncategorized")}</p>
           <p>Price: ${money(product.price)}</p>
           <p>Status: ${product.is_active ? "Active" : "Inactive"}</p>
-          <div class="product-actions">
+    <div class="product-actions">
   <button
     type="button"
     class="edit-product-btn"
     data-product-id="${escapeHTML(product.id)}"
   >
     ✎ EDIT PRODUCT
+  </button>
+
+  <button
+    type="button"
+    class="delete-product-btn"
+    data-product-id="${escapeHTML(product.id)}"
+    style="background:#f8d5d5;color:#a83232;"
+  >
+    🗑 DELETE PRODUCT
   </button>
 </div>
         </div>
@@ -1550,6 +1559,53 @@ productsContainer.addEventListener("click", function(event) {
       : "";
 
   document.getElementById("productModal").style.display = "flex";
+});
+
+// DELETE PRODUCT
+
+productsContainer.addEventListener("click", async function(event) {
+  const deleteButton = event.target.closest(".delete-product-btn");
+
+  if (!deleteButton) return;
+
+  const productId = deleteButton.dataset.productId;
+
+  const product = allProducts.find(
+    item => String(item.id) === String(productId)
+  );
+
+  if (!product) {
+    alert("Product not found.");
+    return;
+  }
+
+  const confirmed = confirm(
+    `Are you sure you want to permanently delete "${product.name}"?`
+  );
+
+  if (!confirmed) return;
+
+  deleteButton.disabled = true;
+  deleteButton.textContent = "DELETING...";
+
+  try {
+    const { error } = await supabaseClient
+      .from("products")
+      .delete()
+      .eq("id", productId);
+
+    if (error) throw error;
+
+    alert("Product deleted successfully! ♡");
+
+    await loadProducts();
+
+  } catch (error) {
+    alert("Could not delete product: " + error.message);
+
+    deleteButton.disabled = false;
+    deleteButton.textContent = "🗑 DELETE PRODUCT";
+  }
 });
 
     async function loadOrders() {
