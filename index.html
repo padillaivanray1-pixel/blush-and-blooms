@@ -1598,9 +1598,9 @@ function renderProducts() {
 ========================================== */
 
 function openProduct(id) {
-  selectedProduct = products.find(
-    product => product.id === id
-  );
+ selectedProduct = products.find(
+    product => String(product.id) === String(id)
+);
 
   if (!selectedProduct) return;
 
