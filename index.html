@@ -1038,7 +1038,7 @@ const STORE = {
    PRODUCT CATALOG
 ========================================== */
 
-const products = [
+let products = [
 
   {
     id: 1,
@@ -1387,7 +1387,31 @@ const products = [
   }
 
 ];
+async function loadProducts() {
+  const grid = document.getElementById("productGrid");
 
+  grid.innerHTML = '<div class="empty">Loading our sweet treats... ♡</div>';
+
+  const { data, error } = await supabaseClient
+    .from("products")
+    .select("*")
+    .eq("is_active", true);
+
+  if (error) {
+    console.error("Product loading error:", error);
+    grid.innerHTML = '<div class="empty">Unable to load products. Please try again later.</div>';
+    return;
+  }
+
+  products = (data || []).map(product => ({
+    ...product,
+    image: product.image_url || product.image || "",
+    options: product.options || {},
+    pricing: product.pricing || {}
+  }));
+
+  renderProducts();
+}
 /* ==========================================
    CART AND WEBSITE STATE
 ========================================== */
@@ -1543,7 +1567,7 @@ function renderProducts() {
 
   grid.innerHTML = filtered.map(product => `
     <article class="product-card">
-      <div class="product-photo" onclick="openProduct(${product.id})">
+      <div class="product-photo" onclick="openProduct('${product.id}')">
         <img
           src="${product.image}"
           alt="${product.name}"
@@ -1561,7 +1585,7 @@ function renderProducts() {
           <span class="price">${productPriceLabel(product)}</span>
           <button
             class="add-btn"
-            onclick="openProduct(${product.id})"
+           onclick="openProduct('${product.id}')"
           >VIEW ♡</button>
         </div>
       </div>
