@@ -1652,15 +1652,23 @@ function updateModalPrice() {
     variations[select.dataset.variation] = select.value;
   });
 
-  const price = calculateProductPrice(selectedProduct, variations);
+  const unitPrice = calculateProductPrice(selectedProduct, variations);
+
+  const quantity = parseInt(
+    document.getElementById("modalQty").textContent,
+    10
+  ) || 1;
+
+  const totalPrice = unitPrice == null
+    ? null
+    : unitPrice * quantity;
 
   const priceElement = document.getElementById("modalPrice");
 
   if (priceElement) {
-    priceElement.textContent = priceLabel(price);
+    priceElement.textContent = priceLabel(totalPrice);
   }
 }
-
 function closeProduct() {
   document.getElementById("productModal").classList.remove("show");
   selectedProduct = null;
